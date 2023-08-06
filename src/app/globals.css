@@ -17,6 +17,16 @@ body {
   @apply overflow-x-hidden;
 }
 
+@layer components {
+  .add-button {
+    @apply bg-red-500 text-white hover:bg-red-700 outline-none px-4 py-2 font-semibold rounded-md transition-all duration-500 ease-in-out;
+  }
+
+  .form-modal {
+    @apply text-white font-semibold bg-neutral-700 p-4 rounded-md flex flex-col gap-4;
+  }
+}
+
 ::selection {
   color: white;
   background-color: red;

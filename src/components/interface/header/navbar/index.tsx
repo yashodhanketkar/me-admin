@@ -10,6 +10,7 @@ export const NavBar = () => {
 
   return navs.map((nav) => (
     <Link
+      key={nav.path}
       sx={{
         ":hover": {
           ":first-letter": {

@@ -1,4 +1,4 @@
-import { getUsers } from "./functions";
+import { getUsers } from "./api";
 
 const User = async () => {
   const users = await getUsers();
