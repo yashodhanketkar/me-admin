@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getProjects } from "./api";
 import { AddProject } from "./create";
-import { Box } from "@mui/material";
 
 const ProjectFactory = ({ project }: { project: Project }) => {
   return (
@@ -32,15 +31,16 @@ const ProjectFactory = ({ project }: { project: Project }) => {
 };
 
 const Project = async () => {
-  const projects = await getProjects();
+  const projects: Project[] = await getProjects();
   return (
     <>
       <AddProject />
       <div className="mx-5 my-20">
         <div className="flex flex-col gap-4">
-          {projects.map((project) => (
-            <ProjectFactory key={project.id} project={project} />
-          ))}
+          {projects &&
+            projects.map((project) => (
+              <ProjectFactory key={project.id} project={project} />
+            ))}
         </div>
       </div>
     </>
