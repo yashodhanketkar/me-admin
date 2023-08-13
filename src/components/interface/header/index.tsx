@@ -1,4 +1,5 @@
 import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
+import { LogoutButton } from "./logoutButton";
 import { NavBar } from "./navbar";
 
 export const Header = async () => {
@@ -28,6 +29,7 @@ export const Header = async () => {
             }}
           >
             <NavBar />
+            <LogoutButton />
           </Box>
         </Toolbar>
       </AppBar>

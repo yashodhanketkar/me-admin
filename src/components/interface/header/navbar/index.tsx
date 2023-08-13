@@ -1,9 +1,9 @@
 "use client";
 
-import { navs } from "./navs";
 import { Link } from "@mui/material";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
+import { navs } from "./navs";
 
 export const NavBar = () => {
   const pathname = usePathname();

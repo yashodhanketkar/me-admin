@@ -1,6 +1,6 @@
-import { NextRequest } from "next/server";
-import prisma from "@/lib/prisma";
 import { CreateResponseFormat, ResponseHandler } from "@/helpers/apiHelper";
+import prisma from "@/lib/prisma";
+import { NextRequest } from "next/server";
 
 const GET = async () => {
   let [error, message, data, status] = CreateResponseFormat();
@@ -19,7 +19,6 @@ const POST = async (req: NextRequest) => {
   let [error, message, data, status] = CreateResponseFormat();
   try {
     const newProject = await req.json();
-    console.log(newProject);
     data = await prisma.project.create({
       data: newProject,
     });

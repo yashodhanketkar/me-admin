@@ -6,3 +6,13 @@ type Project = {
   description: string;
   url: string;
 };
+
+type User = {
+  id: string;
+  picture: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  profile: string;
+};

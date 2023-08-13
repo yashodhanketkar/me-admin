@@ -1,5 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 
+declare global {
+  namespace globalThis {
+    var prisma: PrismaClient;
+  }
+}
+
 let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === "production") {

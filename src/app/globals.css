@@ -43,10 +43,10 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-800;
+  @apply bg-neutral-800;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-700;
+  @apply bg-neutral-700;
 }

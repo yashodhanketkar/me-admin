@@ -1,9 +1,9 @@
-import { Footer, Header } from "@/components";
-import "./globals.css";
+import { Footer } from "@/components";
+import { ThemeWrapper } from "@/context";
+import { CssBaseline } from "@mui/material";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { CssBaseline } from "@mui/material";
-import { ThemeWrapper } from "@/components/interface/theme";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +23,7 @@ export default function RootLayout({
         <ThemeWrapper>
           <CssBaseline />
           <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="p-4 mb-auto">{children}</main>
+            <div className="mb-auto">{children}</div>
             <Footer />
           </div>
         </ThemeWrapper>
