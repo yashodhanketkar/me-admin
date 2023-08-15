@@ -9,13 +9,12 @@ const User = async () => {
         Staff
       </h1>
       <div className="grid grid-cols-1 gap-4 p-2 text-black md:gap-2 xl:gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {users
-          .filter((user) => user.role === "admin")
-          .map((user) => (
-            <UserCardFactory key={user.id} user={user} />
-          ))}
+        {users &&
+          users
+            .filter((user) => user.role === "admin")
+            .map((user) => <UserCardFactory key={user.id} user={user} />)}
       </div>
-      {users.filter((user) => user.role !== "admin").length > 0 && (
+      {users && users.filter((user) => user.role !== "admin").length > 0 && (
         <>
           <hr className="my-4 border-2 border-neutral-600" />
           <h1 className="px-2 text-xl font-bold text-red-600 font-comfortaa">
@@ -24,11 +23,10 @@ const User = async () => {
         </>
       )}
       <div className="grid grid-cols-1 gap-4 p-2 text-black md:gap-2 xl:gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {users
-          .filter((user) => user.role !== "admin")
-          .map((user) => (
-            <UserCardFactory key={user.id} user={user} />
-          ))}
+        {users &&
+          users
+            .filter((user) => user.role !== "admin")
+            .map((user) => <UserCardFactory key={user.id} user={user} />)}
       </div>
     </div>
   );
