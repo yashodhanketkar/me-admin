@@ -9,6 +9,7 @@ type Project = {
 
 type User = {
   id: string;
+  role: string;
   picture: string;
   username: string;
   firstName: string;

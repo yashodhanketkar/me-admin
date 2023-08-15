@@ -1,6 +1,7 @@
 "use client";
 
 import { FormFieldFactory, FormFieldFactoryType } from "@/components/form";
+import { MessageSnackBar, MessageSnackBarType } from "@/components/snackbar";
 import { Modal, Snackbar } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -45,7 +46,10 @@ const formFields: Pick<
 export const AddProject = () => {
   const [open, setOpen] = useState(false);
   const [openSnack, setOpenSnack] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<MessageSnackBarType>({
+    severity: "info",
+    message: "",
+  });
   const {
     register,
     handleSubmit,
@@ -55,7 +59,10 @@ export const AddProject = () => {
 
   let onSubmit = async (data: any) => {
     await createProject(data);
-    setMessage("Added new project");
+    setMessage({
+      severity: "success",
+      message: "Added new project",
+    });
     openSnackBar();
     handleModal();
   };
@@ -70,7 +77,7 @@ export const AddProject = () => {
   };
 
   let closeSnackBar = () => {
-    setMessage("");
+    setMessage({ severity: "info", message: "" });
     setOpenSnack(false);
   };
 
@@ -101,10 +108,9 @@ export const AddProject = () => {
           </form>
         </div>
       </Modal>
-      <Snackbar
-        open={openSnack}
-        autoHideDuration={2000}
-        onClose={closeSnackBar}
+      <MessageSnackBar
+        openSnack={openSnack}
+        closeSnackBar={closeSnackBar}
         message={message}
       />
     </div>

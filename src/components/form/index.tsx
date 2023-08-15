@@ -11,6 +11,7 @@ export type FormFieldFactoryType = {
   valueAsNumber: boolean;
   labelclass?: string;
   textclass?: string;
+  unlabeled?: boolean;
 };
 
 const FormFieldFactory = ({
@@ -22,14 +23,17 @@ const FormFieldFactory = ({
   valueAsNumber = false,
   labelclass,
   textclass,
+  unlabeled = false,
 }: FormFieldFactoryType) => {
   const [hide, setHide] = useState(true);
 
   return (
     <div className="flex flex-col w-11/12 gap-1">
-      <label htmlFor={name} className={labelclass && labelclass}>
-        {name.charAt(0).toUpperCase() + name.slice(1)}
-      </label>
+      {!unlabeled && (
+        <label htmlFor={name} className={labelclass && labelclass}>
+          {name.charAt(0).toUpperCase() + name.slice(1)}
+        </label>
+      )}
       {fieldType === "textarea" ? (
         <textarea
           className="p-2 text-white rounded-md outline-none resize-none bg-neutral-900"
