@@ -1,11 +1,16 @@
-import { Algorithm, JwtPayload, sign, verify } from "jsonwebtoken";
-import fs from "node:fs";
+import { Algorithm, JwtPayload, Secret, sign, verify } from "jsonwebtoken";
+// import fs from "node:fs";
 
-const SECRET = fs.readFileSync("secrets/private.pem");
-const CERT = fs.readFileSync("secrets/public.pem");
+// const SECRET = fs.readFileSync("secrets/private.pem");
+// if (!SECRET) throw new Error("Certificate not found");
+// const CERT: Secret = fs.readFileSync("secrets/public.pem");
+// if (!CERT) throw new Error("Certificate not found");
 
-if (!SECRET) throw new Error("Secret key not found");
-if (!CERT) throw new Error("Certificate not found");
+if (!process.env.NEXT_PRIVATE_KEY) throw new Error("Secret key not found");
+if (!process.env.NEXT_PUBLIC_KEY) throw new Error("Certificate not found");
+
+const SECRET: Secret = process.env.NEXT_PRIVATE_KEY;
+const CERT: Secret = process.env.NEXT_PUBLIC_KEY;
 
 const algorithm: Algorithm = "RS256";
 
