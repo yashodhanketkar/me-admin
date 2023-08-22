@@ -23,7 +23,7 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const getAuthState = async () => {
-      await fetch(API + "auth", { method: "POST" })
+      await fetch(API + "auth", { method: "POST", cache: "no-store" })
         .then((res) => res.json())
         .then((res) => res.result[0])
         .then((res) => {

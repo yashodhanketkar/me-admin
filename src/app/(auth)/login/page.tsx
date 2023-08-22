@@ -1,5 +1,4 @@
 import { Paper } from "@mui/material";
-import { cookies } from "next/headers";
 import { LoginForm } from "./form";
 
 const Login = () => {
