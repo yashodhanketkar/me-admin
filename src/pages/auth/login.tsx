@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
 import type { AxiosError } from "axios";
 import { useState } from "react";
-import { type SubmitHandler,useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineUser } from "react-icons/ai";
 
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { authSchema, type IAuthForm } from "@/features/auth";
-import { useAuth } from "@/store/query";
+import { useAuth } from "@/store/query/auth";
 
 const LoginPage = () => {
   const {

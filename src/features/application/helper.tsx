@@ -4,7 +4,7 @@ import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 import { api } from "@/api/client";
 import { ApplicationModal } from "@/components/applicationModal";
-import type { IApplication } from "@/types/applications";
+import type { IApplication } from "@/types/types";
 
 interface UpdateApplicationProps {
   id: string;

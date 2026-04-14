@@ -1,18 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
 
 import {
   createApp,
   fetchApps,
+  type IAppFromData,
   updateApp,
   updateAppStatus,
 } from "@/api/application";
-import { login, register } from "@/api/auth";
-import type { IApplication, Status } from "@/types/applications";
-
-import { useAuthStore } from "./auth";
-
-type AppData = Partial<IApplication>;
+import type { Status } from "@/types/types";
 
 export const useApps = () => {
   const queryClient = useQueryClient();
@@ -32,7 +27,7 @@ export const useApps = () => {
 
   const updateAppMutation = useMutation({
     mutationKey: ["update"],
-    mutationFn: ({ id, payload }: { id: string; payload: AppData }) =>
+    mutationFn: ({ id, payload }: { id: string; payload: IAppFromData }) =>
       updateApp(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["apps"] });
@@ -41,7 +36,7 @@ export const useApps = () => {
 
   const createAppMutation = useMutation({
     mutationKey: ["create"],
-    mutationFn: ({ payload }: { payload: AppData }) => createApp(payload),
+    mutationFn: ({ payload }: { payload: IAppFromData }) => createApp(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["apps"] });
     },
@@ -52,36 +47,5 @@ export const useApps = () => {
     updateStatusMutation,
     updateAppMutation,
     createAppMutation,
-  };
-};
-
-export const useAuth = () => {
-  const navigate = useNavigate();
-  const setToken = useAuthStore((s) => s.setToken);
-
-  const useLoginMutation = useMutation({
-    mutationFn: login,
-    onSuccess: (res) => {
-      if (res.status === 200) {
-        console.log("Login success");
-        setToken(res.data.token);
-        navigate({ to: "/board" });
-      }
-    },
-    onError: (err: Error) => {
-      console.log("Login failed: ", err.message);
-    },
-  });
-
-  const useRegisterMutation = useMutation({
-    mutationFn: register,
-    onSuccess: () => {
-      navigate({ to: "/" });
-    },
-  });
-
-  return {
-    useLoginMutation,
-    useRegisterMutation,
   };
 };

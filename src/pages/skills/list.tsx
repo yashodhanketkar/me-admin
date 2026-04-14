@@ -11,34 +11,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-interface ISkills {
-  category: string;
-  id: string;
-  name: string;
-}
-
-const apiData: ISkills[] = [
-  {
-    category: "Frontend",
-    id: "1",
-    name: "HTML",
-  },
-  {
-    category: "Frontend",
-    id: "2",
-    name: "CSS",
-  },
-  {
-    category: "Backend",
-    id: "3",
-    name: "Go",
-  },
-];
+import { useSkillsQuery } from "@/store/query/skill";
 
 export const SkillsList = () => {
+  const { getSkillsQuery } = useSkillsQuery();
+  const { data, isLoading, isError, error } = getSkillsQuery;
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error: {error.message}</p>;
+  if (!data) return <p>Error: "No data!"</p>;
+
   const dict = Object.values(
-    apiData.reduce(
+    data.reduce(
       (acc, { category, name }) => {
         if (!acc[category]) {
           acc[category] = { category, name: [] };
@@ -60,7 +44,7 @@ export const SkillsList = () => {
       </CardHeader>
       <CardContent>
         {dict.map((d) => (
-          <Accordion>
+          <Accordion key={d.name + d.category}>
             <AccordionItem value={d.category}>
               <AccordionTrigger>{d.category}</AccordionTrigger>
               <AccordionContent>{d.name.join(", ")}</AccordionContent>
