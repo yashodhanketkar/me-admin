@@ -1,24 +1,30 @@
-//  @ts-check
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import sorter from "eslint-plugin-simple-import-sort";
+import tseslint from "typescript-eslint";
+import { defineConfig, globalIgnores } from "eslint/config";
 
-import { tanstackConfig } from '@tanstack/eslint-config'
-
-export default [
-  ...tanstackConfig,
+export default defineConfig([
+  globalIgnores(["dist"]),
   {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    plugins: {
+      "simple-import-sort": sorter,
+    },
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
     rules: {
-      'import/no-cycle': 'off',
-      'import/order': 'off',
-      'sort-imports': 'off',
-      '@typescript-eslint/array-type': 'off',
-      '@typescript-eslint/require-await': 'off',
-      'pnpm/json-enforce-catalog': 'off',
+      "simple-import-sort/imports": "error",
     },
   },
-  {
-    ignores: [
-      'eslint.config.js',
-      'prettier.config.js',
-      './src/components/ui/*.tsx',
-    ],
-  },
-]
+]);
