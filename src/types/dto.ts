@@ -49,5 +49,4 @@ export type SocialDTO = {
 export type SkillDTO = {
   category: string;
   name: string;
-  customCategory?: string;
 };

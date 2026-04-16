@@ -4,7 +4,7 @@ import {
   createSkill,
   deleteSkill,
   fetchSkills,
-  type ISkillForm,
+  type SkillForm,
   updateSkill,
 } from "@/api/skills";
 
@@ -18,7 +18,7 @@ export const useSkillsQuery = () => {
 
   const createSkillMutation = useMutation({
     mutationKey: ["create"],
-    mutationFn: (payload: ISkillForm) => createSkill(payload),
+    mutationFn: (payload: SkillForm) => createSkill(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["skills"] });
     },
@@ -26,7 +26,7 @@ export const useSkillsQuery = () => {
 
   const updateSkillMutation = useMutation({
     mutationKey: ["update"],
-    mutationFn: ({ id, payload }: { id: string; payload: ISkillForm }) =>
+    mutationFn: ({ id, payload }: { id: string; payload: SkillForm }) =>
       updateSkill(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["skills"] });

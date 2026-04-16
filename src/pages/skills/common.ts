@@ -16,3 +16,4 @@ export const skillFormatter = (data: Skill[]) => {
 };
 
 export type SkillDict = ReturnType<typeof skillFormatter>;
+export type SkillDictItem = SkillDict[number];

@@ -29,10 +29,11 @@ export const SkillsForm = () => {
     watch,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<SkillDTO>({
     resolver: zodResolver(skillSchema),
-    defaultValues: { name: "", category: "", customCategory: "" },
+    defaultValues: { name: "", category: "" },
   });
 
   const { getSkillsQuery, createSkillMutation } = useSkillsQuery();
@@ -42,7 +43,6 @@ export const SkillsForm = () => {
 
   const selectedCategory = watch("category");
   const isCustom = selectedCategory === "Custom";
-  console.log(selectedCategory);
 
   if (!isLoading && !isError && data) {
     dict = skillFormatter(data);
@@ -50,7 +50,8 @@ export const SkillsForm = () => {
 
   const onSubmit: SubmitHandler<SkillDTO> = async (data) => {
     createSkillMutation.mutate(data);
-    if (createSkillMutation.status) setError("Failed to create skill");
+    if (createSkillMutation.isError) setError("Failed to create skill");
+    else reset();
   };
 
   return (
@@ -79,7 +80,7 @@ export const SkillsForm = () => {
           </FieldGroup>
           <DialogFooter>
             <ButtonGroup orientation="horizontal" style={{ gap: "1rem" }}>
-              <Button type="submit" variant="outline">
+              <Button type="submit" variant="ghost">
                 Create
               </Button>
               <DialogClose>Cancel</DialogClose>

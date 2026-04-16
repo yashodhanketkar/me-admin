@@ -13,13 +13,12 @@ export const useAuth = () => {
     mutationFn: login,
     onSuccess: (res) => {
       if (res.status === 200) {
-        console.log("Login success");
         setToken(res.data.token);
         navigate({ to: "/board" });
       }
     },
     onError: (err: Error) => {
-      console.log("Login failed: ", err.message);
+      console.error("Login failed: ", err.message);
     },
   });
 
