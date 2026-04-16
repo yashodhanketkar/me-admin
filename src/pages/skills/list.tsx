@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/card";
 import { useSkillsQuery } from "@/store/query/skill";
 
+import { skillFormatter } from "./common";
+
 export const SkillsList = () => {
   const { getSkillsQuery } = useSkillsQuery();
   const { data, isLoading, isError, error } = getSkillsQuery;
@@ -21,18 +23,7 @@ export const SkillsList = () => {
   if (isError) return <p>Error: {error.message}</p>;
   if (!data) return <p>Error: "No data!"</p>;
 
-  const dict = Object.values(
-    data.reduce(
-      (acc, { category, name }) => {
-        if (!acc[category]) {
-          acc[category] = { category, name: [] };
-        }
-        acc[category].name.push(name);
-        return acc;
-      },
-      {} as Record<string, { category: string; name: string[] }>,
-    ),
-  );
+  const dict = skillFormatter(data);
 
   return (
     <Card>
