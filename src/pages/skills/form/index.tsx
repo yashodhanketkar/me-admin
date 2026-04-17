@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 
@@ -57,17 +58,27 @@ export const SkillsForm = () => {
   return (
     <Dialog>
       <DialogTrigger>
-        <p className="fixed font-bold bottom-20 right-10 bg-zinc-800 text-zinc-50 p-2 rounded-full">
-          {"[+]"}
-        </p>
+        <Button
+          size="icon"
+          className="fixed bottom-10 right-10 h-14 w-14 rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95"
+          title="Add skill"
+        >
+          <Plus className="h-6 w-6" />
+        </Button>
       </DialogTrigger>
-      <DialogContent>
-        <form onSubmit={handleSubmit(onSubmit)} onChange={() => setError("")}>
+      <DialogContent className="sm:max-w-[425px]">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          onChange={() => setError("")}
+          className="space-y-6"
+        >
           <DialogHeader>
-            <DialogTitle>Skills</DialogTitle>
+            <DialogTitle className="text-2xl font-bold tracking-tight">
+              Skills
+            </DialogTitle>
             <DialogDescription>Add your skills</DialogDescription>
           </DialogHeader>
-          <FieldGroup>
+          <FieldGroup className="space-y-4 py-2">
             <SelectCategory
               register={register}
               dict={dict}
@@ -76,14 +87,18 @@ export const SkillsForm = () => {
               setValue={setValue}
             />
             <InputName register={register} errors={errors} />
-            {!!error && <p className="text-red-500 p-1 text-center">{error}</p>}
+            {!!error && (
+              <p className="text-xs font-medium text-destructive bg-destructive/10 p-2 rounded-md text-center">
+                {error}
+              </p>
+            )}
           </FieldGroup>
-          <DialogFooter>
-            <ButtonGroup orientation="horizontal" style={{ gap: "1rem" }}>
+          <DialogFooter className="mt-4">
+            <ButtonGroup orientation="horizontal" className="gap-4">
+              <DialogClose>Cancel</DialogClose>
               <Button type="submit" variant="ghost">
                 Create
               </Button>
-              <DialogClose>Cancel</DialogClose>
             </ButtonGroup>
           </DialogFooter>
         </form>

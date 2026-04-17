@@ -2,9 +2,14 @@ import { MainNavigation } from "./navigation";
 
 export const Header = () => {
   return (
-    <header className="bg-zinc-800 text-zinc-50 w-full inline-flex p-2 justify-between items-center">
-      <h3 className="text-xl font-bold">Yashodhan | Admin</h3>
-      <MainNavigation />
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-8">
+        <h3 className="text-lg font-bold tracking-tight sm:text-xl">
+          Yashodhan{" "}
+          <span className="text-muted-foreground font-normal">| Admin</span>
+        </h3>
+        <MainNavigation />
+      </div>
     </header>
   );
 };

@@ -1,17 +1,15 @@
 import { type SubmitHandler, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { ButtonGroup } from "@/components/ui/button-group";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
+import { FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useSkillsQuery } from "@/store/query/skill";
 import type { Skill } from "@/types/types";
@@ -56,28 +54,46 @@ export const SkillNameEdit = ({
 
   return (
     <Dialog open={open} onOpenChange={toggleOpen}>
-      <DialogContent>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>New Name</DialogTitle>
-          <DialogDescription>Change the name of {name} skill</DialogDescription>
+          <DialogTitle className="tracking-tight text-xl">
+            Edit Skill
+          </DialogTitle>
+          <DialogDescription>
+            Rename <span className="font-bold text-foreground">{name}</span>.
+            This will update it across all projects.
+          </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit(handleEdit)}>
-          <Field className="mb-4">
-            <FieldLabel>Name</FieldLabel>
-            <Input {...register("name")} />
+        <form onSubmit={handleSubmit(handleEdit)} className="space-y-6 pt-4">
+          <div className="space-y-2">
+            <FieldLabel className="text-xs font-bold uppercase tracking-wider">
+              Skill Name
+            </FieldLabel>
+            <Input
+              {...register("name")}
+              className={
+                errors.name
+                  ? "border-destructive focus-visible:ring-destructive"
+                  : ""
+              }
+            />
             {errors.name && (
-              <FieldDescription className="text-red-500">
+              <p className="text-[12px] font-medium text-destructive">
                 {errors.name.message}
-              </FieldDescription>
+              </p>
             )}
-          </Field>
+          </div>
           <DialogFooter>
-            <ButtonGroup orientation="horizontal" style={{ gap: "1rem" }}>
-              <Button type="submit" variant="ghost">
-                Edit
+            <div className="flex gap-2 justify-end w-full">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => toggleOpen(false)}
+              >
+                Cancel
               </Button>
-              <DialogClose>Cancel</DialogClose>
-            </ButtonGroup>
+              <Button type="submit">Save Changes</Button>
+            </div>
           </DialogFooter>
         </form>
       </DialogContent>

@@ -75,7 +75,7 @@ export type Social = {
 };
 
 export type Skill = {
-  category: string;
   id: string;
+  category: string;
   name: string;
 };

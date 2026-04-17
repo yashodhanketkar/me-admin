@@ -20,7 +20,7 @@ export const useExperiencesQuery = () => {
     mutationKey: ["create"],
     mutationFn: (payload: ExperienceForm) => createExperience(payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["experiences"] });
+      queryClient.invalidateQueries({ queryKey: ["experiences", "dashboard"] });
     },
   });
 
@@ -29,7 +29,7 @@ export const useExperiencesQuery = () => {
     mutationFn: ({ id, payload }: { id: string; payload: ExperienceForm }) =>
       updateExperience(id, payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["experiences"] });
+      queryClient.invalidateQueries({ queryKey: ["experiences", "dashboard"] });
     },
   });
 
@@ -37,7 +37,7 @@ export const useExperiencesQuery = () => {
     mutationKey: ["delete"],
     mutationFn: (id: string) => deleteExperience(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["experiences"] });
+      queryClient.invalidateQueries({ queryKey: ["experiences", "dashboard"] });
     },
   });
 

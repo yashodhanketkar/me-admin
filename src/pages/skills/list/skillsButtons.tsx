@@ -33,17 +33,27 @@ export const SkillButton = ({
     <>
       <ContextMenu>
         <ContextMenuTrigger>
-          <Badge variant="secondary" className="text-base">
+          <Badge
+            variant="secondary"
+            className="px-3 py-1 text-sm font-medium transition-colors hover:bg-primary hover:text-primary-foreground cursor-context-menu"
+          >
             {item}
           </Badge>
         </ContextMenuTrigger>
-        <ContextMenuContent>
+        <ContextMenuContent className="w-48">
           <ContextMenuGroup>
-            <ContextMenuLabel>Options</ContextMenuLabel>
+            <ContextMenuLabel className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              SKill Options
+            </ContextMenuLabel>
             <ContextMenuItem onClick={() => toggleOpen(true)}>
-              Update
+              Update Name
             </ContextMenuItem>
-            <ContextMenuItem onClick={handleDelete}>Delete</ContextMenuItem>
+            <ContextMenuItem
+              onClick={handleDelete}
+              className="text-destructive focus:bg-destructive focus:text-white"
+            >
+              Delete Skill
+            </ContextMenuItem>
           </ContextMenuGroup>
         </ContextMenuContent>
       </ContextMenu>

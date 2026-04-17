@@ -15,19 +15,24 @@ export const SkillsList = () => {
   const dict = skillFormatter(data);
 
   return (
-    <>
+    <div className="space-y-4">
       {dict.map(({ category, name }) => (
-        <Card key={category}>
-          <CardHeader>
-            <CardTitle>{category}</CardTitle>
+        <Card
+          key={category}
+          className="border-border/50 shadow-sm overflow-hidden"
+        >
+          <CardHeader className="bg-muted/10 py-3 border-b">
+            <CardTitle className="text-sm font-bold tracking-widest uppercase text-muted-foreground">
+              {category}
+            </CardTitle>
           </CardHeader>
-          <CardContent className="inline-flex flex-wrap gap-2">
+          <CardContent className="p-4 flex flex-wrap gap-2">
             {name.map((it) => (
               <SkillButton key={it} item={it} data={data} />
             ))}
           </CardContent>
         </Card>
       ))}
-    </>
+    </div>
   );
 };

@@ -20,7 +20,7 @@ export const useSkillsQuery = () => {
     mutationKey: ["create"],
     mutationFn: (payload: SkillForm) => createSkill(payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["skills"] });
+      queryClient.invalidateQueries({ queryKey: ["skills", "dashboard"] });
     },
   });
 
@@ -29,7 +29,7 @@ export const useSkillsQuery = () => {
     mutationFn: ({ id, payload }: { id: string; payload: SkillForm }) =>
       updateSkill(id, payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["skills"] });
+      queryClient.invalidateQueries({ queryKey: ["skills", "dashboard"] });
     },
   });
 
@@ -37,7 +37,7 @@ export const useSkillsQuery = () => {
     mutationKey: ["delete"],
     mutationFn: (id: string) => deleteSkill(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["skills"] });
+      queryClient.invalidateQueries({ queryKey: ["skills", "dashboard"] });
     },
   });
 

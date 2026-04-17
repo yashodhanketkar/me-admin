@@ -13,6 +13,7 @@ import LoginPage from "./pages/auth/login";
 import RegisterPage from "./pages/auth/register";
 import BoardPage from "./pages/board";
 import HomePage from "./pages/home";
+import ProjectsPage from "./pages/projects";
 import SkillsPage from "./pages/skills";
 
 const unProtectedRouteConfigs: RouteConfig[] = [
@@ -23,6 +24,7 @@ const unProtectedRouteConfigs: RouteConfig[] = [
 const protectedRouteConfigs: RouteConfig[] = [
   { path: "/board", component: BoardPage },
   { path: "/skills", component: SkillsPage },
+  { path: "/projects", component: ProjectsPage },
 ];
 
 const rootRoute = createRootRoute({
@@ -82,7 +84,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <div className="w-screen min-h-screen flex flex-col justify-between">
       <Header />
-      <main className="mb-auto">{children}</main>
+      <main className="container mt-4 mb-auto mx-auto">{children}</main>
       <Footer />
     </div>
   );
