@@ -20,7 +20,7 @@ export const useProjectsQuery = () => {
     mutationKey: ["create"],
     mutationFn: (payload: ProjectForm) => createProject(payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["projects", "dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
     },
   });
 
@@ -29,7 +29,7 @@ export const useProjectsQuery = () => {
     mutationFn: ({ id, payload }: { id: string; payload: ProjectForm }) =>
       updateProject(id, payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["projects", "dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
     },
   });
 
@@ -37,7 +37,7 @@ export const useProjectsQuery = () => {
     mutationKey: ["delete"],
     mutationFn: (id: string) => deleteProject(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["projects", "dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
     },
   });
 

@@ -1,6 +1,8 @@
-import { CalendarDays, Link, Link2, Star } from "lucide-react";
+import { CalendarDays, Link, Link2, Star, Trash2 } from "lucide-react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
 import {
   Card,
   CardContent,
@@ -9,21 +11,30 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useProjectsQuery } from "@/store/query/project";
 import type { Project } from "@/types/types";
 
 export const ProjectCard = ({ project }: { project: Project }) => {
-  const { updateProjectMutation } = useProjectsQuery();
+  const { updateProjectMutation, deleteProjectMutation } = useProjectsQuery();
 
   const toggleFeatured = () => {
-    // optimistic update
-    project.featured = !project.featured;
     updateProjectMutation.mutate({
       id: project.id,
       payload: {
-        featured: project.featured,
+        featured: !project.featured,
       },
     });
+  };
+
+  const deleteProject = () => {
+    deleteProjectMutation.mutate(project.id);
   };
 
   return (
@@ -85,6 +96,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
             {project.start} — {project.end}
           </span>
         </div>
+        <DeleteButton deleteProject={deleteProject} />
       </CardFooter>
     </Card>
   );
@@ -102,6 +114,7 @@ const FeatureButton = ({
       size="icon"
       onClick={toggleFeatured}
       variant="ghost"
+      type="button"
       className="cursor-pointer"
       title={featured ? "Remove from featured" : "Add to featured"}
     >
@@ -109,5 +122,48 @@ const FeatureButton = ({
         className={`h-3 w-3 ${featured && "fill-[#FFB900] text-[#FFB900]"}`}
       />
     </Button>
+  );
+};
+
+const DeleteButton = ({ deleteProject }: { deleteProject: () => void }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <Button
+        variant="destructive"
+        onClick={() => setOpen(true)}
+        type="button"
+        className="cursor-pointer"
+      >
+        <Trash2 className="h-3 w-3" />
+        Delete
+      </Button>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Delete Project</DialogTitle>
+          Are you sure you want to delete this project?
+        </DialogHeader>
+        <DialogFooter>
+          <ButtonGroup orientation="horizontal">
+            <Button
+              variant="outline"
+              onClick={() => setOpen(false)}
+              className="cursor-pointer"
+            >
+              Cancel
+            </Button>
+            <Button
+              className="cursor-pointer"
+              onClick={() => {
+                deleteProject();
+                setOpen(false);
+              }}
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
