@@ -1,6 +1,5 @@
 import { CalendarDays, Link, Link2, Star } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,24 +9,38 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useProjectsQuery } from "@/store/query/project";
 import type { Project } from "@/types/types";
 
 export const ProjectCard = ({ project }: { project: Project }) => {
+  const { updateProjectMutation } = useProjectsQuery();
+
+  const toggleFeatured = () => {
+    // optimistic update
+    project.featured = !project.featured;
+    updateProjectMutation.mutate({
+      id: project.id,
+      payload: {
+        featured: project.featured,
+      },
+    });
+  };
+
   return (
     <Card
-      className={`group relative overflow-hidden transition-all duration-300 hover:ring-2 hover:ring-ring/20 ${project.featured ? "border-primary/50 bg-primary/[0.02]" : ""}`}
+      className={` group relative overflow-hidden transition-all duration-300 hover:ring-2 hover:ring-ring/20 ${
+        project?.featured && " border-primary/50 bg-primary/[0.02] "
+      }`}
     >
       <CardHeader className="pb-3">
         <div className="space-y-2">
           <CardDescription>{project.source}</CardDescription>
-          {project.featured && (
-            <div className="absolute right-3 top-3 z-10">
-              <Badge className="gap-1 px-2 py-0.5 text-[10px] shadow-sm">
-                <Star className="h-3 w-3 fill-current" />
-                Featured
-              </Badge>
-            </div>
-          )}
+          <div className="absolute right-3 top-3 z-10">
+            <FeatureButton
+              featured={project.featured}
+              toggleFeatured={toggleFeatured}
+            />
+          </div>
         </div>
         <CardTitle>{project.name}</CardTitle>
       </CardHeader>
@@ -74,5 +87,27 @@ export const ProjectCard = ({ project }: { project: Project }) => {
         </div>
       </CardFooter>
     </Card>
+  );
+};
+
+const FeatureButton = ({
+  featured,
+  toggleFeatured,
+}: {
+  featured: boolean;
+  toggleFeatured: () => void;
+}) => {
+  return (
+    <Button
+      size="icon"
+      onClick={toggleFeatured}
+      variant="ghost"
+      className="cursor-pointer"
+      title={featured ? "Remove from featured" : "Add to featured"}
+    >
+      <Star
+        className={`h-3 w-3 ${featured && "fill-[#FFB900] text-[#FFB900]"}`}
+      />
+    </Button>
   );
 };
