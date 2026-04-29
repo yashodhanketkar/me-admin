@@ -1,11 +1,11 @@
-import { ProjectForm } from "./form";
+import { CreateProject } from "./form/newproject";
 import { ProjectsList } from "./list";
 
 const ProjectsPage = () => {
   return (
     <>
       <ProjectsList />
-      <ProjectForm />
+      <CreateProject />
     </>
   );
 };
