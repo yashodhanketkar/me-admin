@@ -1,4 +1,4 @@
-import { MainNavigation } from "./navigation";
+import { AuthLinks, MainNavigation } from "./navigation";
 
 export const Header = () => {
   return (
@@ -8,7 +8,10 @@ export const Header = () => {
           Yashodhan{" "}
           <span className="text-muted-foreground font-normal">| Admin</span>
         </h3>
-        <MainNavigation />
+        <div className="flex flex-row">
+          <MainNavigation />
+          <AuthLinks />
+        </div>
       </div>
     </header>
   );

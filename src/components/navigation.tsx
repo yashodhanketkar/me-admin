@@ -4,7 +4,6 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
@@ -12,12 +11,16 @@ import {
 import { useAuthStore } from "@/store/auth";
 
 const Pages: { path: string; name: string }[] = [
-  { path: "/", name: "Home" },
+  { path: "/board", name: "Dashboard" },
   { path: "/skills", name: "Skills" },
   { path: "/projects", name: "Projects" },
 ];
 
 export const MainNavigation = () => {
+  const { token } = useAuthStore();
+
+  if (!token) return null;
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -26,7 +29,7 @@ export const MainNavigation = () => {
             Manage
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:grid-cols-2">
+            <ul className="grid w-[400px] gap-1 p-1 md:grid-cols-2">
               {Pages.map((page) => (
                 <li key={page.path}>
                   <Link
@@ -43,11 +46,6 @@ export const MainNavigation = () => {
                   </Link>
                 </li>
               ))}
-
-              {/* Divider and Auth */}
-              <li className="col-span-2 mt-2 border-t pt-2">
-                <AuthLinks />
-              </li>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -56,21 +54,21 @@ export const MainNavigation = () => {
   );
 };
 
-const AuthLinks = () => {
+const AuthLinkButton = ({ label }: { label: string }) => {
   const navigate = useNavigate();
-  const matchRoute = useMatchRoute();
-  const { setToken, token } = useAuthStore();
-  const hasToken = !!token;
-
-  if (matchRoute({ to: "/login" }) || matchRoute({ to: "/register" }))
-    return null;
+  const { setToken } = useAuthStore();
 
   const handleAuth = () => {
-    if (hasToken) {
-      setToken(null);
-      navigate({ to: "/" });
-    } else {
-      navigate({ to: "/login" });
+    switch (label) {
+      case "Logout":
+        setToken(null);
+        navigate({ to: "/" });
+        break;
+      case "Login":
+        navigate({ to: "/login" });
+        break;
+      case "Register":
+        navigate({ to: "/register" });
     }
   };
 
@@ -79,7 +77,22 @@ const AuthLinks = () => {
       onClick={handleAuth}
       className={`${navigationMenuTriggerStyle()} cursor-pointer font-medium text-destructive hover:bg-destructive/10 hover:text-destructive transition-all`}
     >
-      {hasToken ? "Logout" : "Login"}
+      {label}
     </button>
+  );
+};
+
+export const AuthLinks = () => {
+  const { token } = useAuthStore();
+  const matchRoute = useMatchRoute();
+
+  const hasToken = !!token;
+
+  if (matchRoute({ to: "/login" })) return <AuthLinkButton label="Register" />;
+
+  return hasToken ? (
+    <AuthLinkButton label="Logout" />
+  ) : (
+    <AuthLinkButton label="Login" />
   );
 };

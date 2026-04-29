@@ -8,6 +8,7 @@ import {
 
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { Toaster } from "@/components/ui/sonner";
 
 import LoginPage from "./pages/auth/login";
 import RegisterPage from "./pages/auth/register";
@@ -23,6 +24,7 @@ const unProtectedRouteConfigs: RouteConfig[] = [
 
 const protectedRouteConfigs: RouteConfig[] = [
   { path: "/board", component: BoardPage },
+  { path: "/home", component: HomePage },
   { path: "/skills", component: SkillsPage },
   { path: "/projects", component: ProjectsPage },
 ];
@@ -43,7 +45,7 @@ const unProtectedRoutesFactory = (path: string, component: RouteComponent) =>
     component: component,
     beforeLoad: () => {
       const token = localStorage.getItem("token");
-      if (token) throw redirect({ to: "/board" });
+      if (token) throw redirect({ to: "/home" });
     },
   });
 
@@ -84,7 +86,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <div className="w-screen min-h-screen flex flex-col justify-between">
       <Header />
-      <main className="container mt-4 mb-auto mx-auto">{children}</main>
+      <main className="container mt-4 mb-auto mx-auto">
+        {children}
+        <Toaster position="top-center" />
+      </main>
       <Footer />
     </div>
   );
