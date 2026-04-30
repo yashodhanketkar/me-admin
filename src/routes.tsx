@@ -4,7 +4,9 @@ import {
   createRouter,
   redirect,
   type RouteComponent,
+  useMatches,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
@@ -19,45 +21,54 @@ import ProjectsPage from "./pages/projects";
 import PublicationsPage from "./pages/publication";
 import SkillsPage from "./pages/skills";
 
+declare module "@tanstack/react-router" {
+  interface StaticDataRouteOption {
+    title?: string;
+  }
+}
+
+interface RouteConfig {
+  path: string;
+  component: RouteComponent;
+  title: string;
+}
+
 const unProtectedRouteConfigs: RouteConfig[] = [
-  { path: "/login", component: LoginPage },
-  { path: "/register", component: RegisterPage },
+  { path: "/login", component: LoginPage, title: "Login" },
+  { path: "/register", component: RegisterPage, title: "Register" },
 ];
 
 const protectedRouteConfigs: RouteConfig[] = [
-  { path: "/board", component: BoardPage },
-  { path: "/home", component: HomePage },
-  { path: "/skills", component: SkillsPage },
-  { path: "/projects", component: ProjectsPage },
-  { path: "/experiences", component: ExperiencesPage },
-  { path: "/publications", component: PublicationsPage },
+  { path: "/board", component: BoardPage, title: "Dashboard" },
+  { path: "/home", component: HomePage, title: "Home" },
+  { path: "/skills", component: SkillsPage, title: "Skills" },
+  { path: "/projects", component: ProjectsPage, title: "Projects" },
+  { path: "/experiences", component: ExperiencesPage, title: "Experiences" },
+  { path: "/publications", component: PublicationsPage, title: "Publications" },
 ];
 
 const rootRoute = createRootRoute({
   shellComponent: RootDocument,
 });
 
-interface RouteConfig {
-  path: string;
-  component: RouteComponent;
-}
-
-const unProtectedRoutesFactory = (path: string, component: RouteComponent) =>
+const unProtectedRoutesFactory = (config: RouteConfig) =>
   createRoute({
     getParentRoute: () => rootRoute,
-    path: path,
-    component: component,
+    path: config.path,
+    component: config.component,
+    staticData: { title: config.title },
     beforeLoad: () => {
       const token = localStorage.getItem("token");
       if (token) throw redirect({ to: "/home" });
     },
   });
 
-const protectedRoutesFactory = (path: string, component: RouteComponent) =>
+const protectedRoutesFactory = (config: RouteConfig) =>
   createRoute({
     getParentRoute: () => rootRoute,
-    path: path,
-    component: component,
+    path: config.path,
+    component: config.component,
+    staticData: { title: config.title },
     beforeLoad: () => {
       const token = localStorage.getItem("token");
       if (!token) throw redirect({ to: "/login" });
@@ -71,11 +82,11 @@ const homeRoute = createRoute({
 });
 
 const unProtectedRoute = unProtectedRouteConfigs.map((config) => {
-  return unProtectedRoutesFactory(config.path, config.component);
+  return unProtectedRoutesFactory(config);
 });
 
 const protectedRoutes = protectedRouteConfigs.map((config) => {
-  return protectedRoutesFactory(config.path, config.component);
+  return protectedRoutesFactory(config);
 });
 
 export const router = createRouter({
@@ -87,6 +98,15 @@ export const router = createRouter({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const matches = useMatches();
+
+  useEffect(() => {
+    const lastMatch = [...matches].reverse().find((d) => d.staticData?.title);
+    const title = lastMatch?.staticData?.title;
+
+    document.title = title ? title : "Yashodhan | Admin";
+  }, [matches]);
+
   return (
     <div className="w-screen min-h-screen flex flex-col justify-between">
       <Header />
