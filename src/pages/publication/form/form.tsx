@@ -15,16 +15,17 @@ import * as f from "@/components/ui/field";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Switch } from "@/components/ui/switch";
 
-import { projectSchema } from "./schema";
-import { type ProjectDTO, type ProjectFormProps } from "./types";
+import { publicationSchema } from "./schema";
+import type { PublicationDTO } from "./types";
+import { type PublicationFormProps } from "./types";
 
-export const ProjectFormGeneric = ({
+export const PublicationFormGeneric = ({
   initialData,
   onSubmit,
   title,
   description,
   submitLabel,
-}: ProjectFormProps) => {
+}: PublicationFormProps) => {
   const [error, setError] = useState("");
   const {
     register,
@@ -32,12 +33,15 @@ export const ProjectFormGeneric = ({
     control,
     formState: { errors },
     reset,
-  } = useForm<ProjectDTO>({
-    resolver: zodResolver(projectSchema),
-    defaultValues: initialData || { links: [] },
+  } = useForm<PublicationDTO>({
+    resolver: zodResolver(publicationSchema),
+    defaultValues: initialData || {
+      authors: [],
+      featured: false,
+    },
   });
 
-  const handleInternalSubmit: SubmitHandler<ProjectDTO> = async (data) => {
+  const handleInternalSubmit: SubmitHandler<PublicationDTO> = async (data) => {
     try {
       await onSubmit(data);
       reset();
@@ -61,47 +65,53 @@ export const ProjectFormGeneric = ({
       <ScrollArea className="flex-1 min-h-0 pr-4">
         <f.FieldGroup>
           <FieldInput
-            label="projects"
+            label="publication"
             name="name"
             register={register}
             error={errors.name}
           />
+          <LinksField
+            name="authors"
+            control={control}
+            register={register}
+            errors={errors}
+          />
           <FieldInput
-            label="projects"
+            label="publication"
             name="description"
-            fType="textarea"
             register={register}
             error={errors.description}
           />
           <FieldInput
-            label="projects"
-            name="start"
+            label="publication"
+            name="abstract"
+            fType="textarea"
             register={register}
-            error={errors.start}
+            error={errors.abstract}
           />
           <FieldInput
-            label="projects"
-            name="end"
+            label="publication"
+            name="date"
             register={register}
-            error={errors.end}
+            error={errors.date}
           />
           <FieldInput
-            label="projects"
-            name="source"
+            label="publication"
+            name="doi"
             register={register}
-            error={errors.source}
+            error={errors.doi}
           />
-          <LinksField
-            name="links"
-            control={control}
+          <FieldInput
+            label="publication"
+            name="journal"
             register={register}
-            errors={errors}
+            error={errors.journal}
           />
           <f.Field orientation="horizontal">
             <f.FieldContent>
               <f.FieldLabel htmlFor="project-featured">Featured</f.FieldLabel>
               <f.FieldDescription>
-                Select if the project is featured
+                Select if the publication is featured
               </f.FieldDescription>
               <FieldErrorWrapper error={errors.featured} />
             </f.FieldContent>
@@ -110,7 +120,7 @@ export const ProjectFormGeneric = ({
               name="featured"
               render={({ field }) => (
                 <Switch
-                  id="project-featured"
+                  id="publication-featured"
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />

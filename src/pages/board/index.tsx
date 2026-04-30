@@ -13,7 +13,7 @@ export const BoardPage = () => {
   if (isError) return <div>Error: {error.message}</div>;
   if (!data) return <div>No data</div>;
 
-  const { projects, skills, research, educations } = data;
+  const { projects, skills, publication, educations } = data;
 
   return (
     <div className="flex-1 space-y-8 p-8 pt-6 max-w-7xl mx-auto">
@@ -40,9 +40,9 @@ export const BoardPage = () => {
           sub={`${new Set(skills.map((s) => s.category)).size} categories`}
         />
         <StatCard
-          title="Experience"
+          title="Publications"
           icon={<Briefcase />}
-          value={research.length}
+          value={publication.length}
           sub="Research publications"
         />
         <StatCard

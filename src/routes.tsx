@@ -16,6 +16,7 @@ import BoardPage from "./pages/board";
 import ExperiencesPage from "./pages/experience";
 import HomePage from "./pages/home";
 import ProjectsPage from "./pages/projects";
+import PublicationsPage from "./pages/publication";
 import SkillsPage from "./pages/skills";
 
 const unProtectedRouteConfigs: RouteConfig[] = [
@@ -29,6 +30,7 @@ const protectedRouteConfigs: RouteConfig[] = [
   { path: "/skills", component: SkillsPage },
   { path: "/projects", component: ProjectsPage },
   { path: "/experiences", component: ExperiencesPage },
+  { path: "/publications", component: PublicationsPage },
 ];
 
 const rootRoute = createRootRoute({

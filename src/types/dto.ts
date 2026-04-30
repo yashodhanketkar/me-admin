@@ -29,7 +29,7 @@ export type ProjectDTO = {
   featured: boolean;
 };
 
-export type ResearchDTO = {
+export type PublicationDTO = {
   name: string;
   description: string;
   abstract: string;

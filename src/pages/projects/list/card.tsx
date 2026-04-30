@@ -1,15 +1,15 @@
 import { CalendarDays, Link, Link2 } from "lucide-react";
 import { toast } from "sonner";
 
+import { FeatureButton } from "@/components/feature";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import * as c from "@/components/ui/card";
 import { useProjectsQuery } from "@/store/query/project";
 import type { Project } from "@/types/types";
 
-import { UpdateProject } from "../form/updateProject";
+import { UpdateProject } from "../form/update";
 import { DeleteButton } from "./delete";
-import { FeatureButton } from "./feature";
 
 export const ProjectCard = ({ project }: { project: Project }) => {
   const { updateProjectMutation, deleteProjectMutation } = useProjectsQuery();
@@ -17,9 +17,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
   const toggleFeatured = () => {
     updateProjectMutation.mutate({
       id: project.id,
-      payload: {
-        featured: !project.featured,
-      },
+      payload: { featured: !project.featured },
     });
   };
 

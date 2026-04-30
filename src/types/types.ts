@@ -55,7 +55,7 @@ export type Project = {
   featured: boolean;
 };
 
-export type Research = {
+export type Publication = {
   id: string;
   name: string;
   description: string;
