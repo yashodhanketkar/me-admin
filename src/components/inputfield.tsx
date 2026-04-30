@@ -1,45 +1,45 @@
-import type {
-  FieldError,
-  FieldErrors,
-  FieldValues,
-  Path,
-  UseFormRegister,
+import {
+  type FieldError,
+  type FieldPath,
+  type FieldValues,
+  type UseFormRegister,
 } from "react-hook-form";
-import { get } from "react-hook-form";
 
-export interface InputFieldProps<T extends FieldValues> {
+import * as f from "./ui/field";
+import { Input } from "./ui/input";
+
+interface FieldInputProps<T extends FieldValues> {
+  name: FieldPath<T>;
   label: string;
-  name: Path<T>;
-  type?: string;
   register: UseFormRegister<T>;
-  errors: FieldErrors<T>;
-  required?: boolean;
+  error?: FieldError;
 }
 
-export const InputField = <T extends FieldValues>({
-  label,
+export const FieldInput = <T extends FieldValues>({
   name,
-  type,
+  label,
   register,
-  errors,
-  required,
-}: InputFieldProps<T>) => {
-  const err: FieldError | undefined = get(errors, name);
-
+  error,
+}: FieldInputProps<T>) => {
   return (
-    <div className="flex flex-col gap-1 mb-4">
-      <label htmlFor={name} className="mb-1 text-sm font-bold capitalize">
-        {label}
-      </label>
-      <input
-        {...register(name, { required })}
-        type={type || "text"}
-        className="p-2 rounded bg-white shadow shadow-black/25 w-full"
-        id={name}
-      />
-      {err && (
-        <span className="text-red-500 text-xs mt-1">{`*${err.message} is required`}</span>
-      )}
-    </div>
+    <f.Field>
+      <f.FieldLabel htmlFor={label + "-" + name}>
+        {name.charAt(0).toUpperCase() + name.slice(1)}
+      </f.FieldLabel>
+      <Input id={`experience-${name}`} {...register(name)} />
+      <f.FieldDescription>
+        Enter experience {name} {["start", "end"].includes(name) && "date"}
+      </f.FieldDescription>
+      <FieldErrorWrapper error={error} />
+    </f.Field>
+  );
+};
+
+export const FieldErrorWrapper = ({ error }: { error?: FieldError }) => {
+  if (!error) return null;
+  return (
+    <f.FieldDescription className="text-red-500">
+      {error.message}
+    </f.FieldDescription>
   );
 };

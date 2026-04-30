@@ -14,6 +14,7 @@ const Pages: { path: string; name: string }[] = [
   { path: "/board", name: "Dashboard" },
   { path: "/skills", name: "Skills" },
   { path: "/projects", name: "Projects" },
+  { path: "/experiences", name: "Experiences" },
 ];
 
 export const MainNavigation = () => {

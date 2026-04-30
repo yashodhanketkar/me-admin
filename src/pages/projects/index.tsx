@@ -1,4 +1,4 @@
-import { CreateProject } from "./form/newproject";
+import { CreateProject } from "./form/newProject";
 import { ProjectsList } from "./list";
 
 const ProjectsPage = () => {

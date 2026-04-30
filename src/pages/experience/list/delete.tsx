@@ -6,9 +6,9 @@ import { ButtonGroup } from "@/components/ui/button-group";
 import * as d from "@/components/ui/dialog";
 
 export const DeleteButton = ({
-  deleteProject,
+  deleteExperience,
 }: {
-  deleteProject: () => void;
+  deleteExperience: () => void;
 }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -23,8 +23,8 @@ export const DeleteButton = ({
       </Button>
       <d.DialogContent>
         <d.DialogHeader>
-          <d.DialogTitle>Delete Project</d.DialogTitle>
-          Are you sure you want to delete this project?
+          <d.DialogTitle>Delete Experience</d.DialogTitle>
+          Are you sure you want to delete this experience?
         </d.DialogHeader>
         <d.DialogFooter>
           <ButtonGroup orientation="horizontal">
@@ -38,7 +38,7 @@ export const DeleteButton = ({
             <Button
               className="cursor-pointer"
               onClick={() => {
-                deleteProject();
+                deleteExperience();
                 setOpen(false);
               }}
             >

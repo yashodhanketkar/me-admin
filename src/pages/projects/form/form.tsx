@@ -1,15 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
-import type {
-  FieldError,
-  FieldPath,
-  FieldValues,
-  SubmitHandler,
-  UseFormRegister,
-} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 
+import { FieldErrorWrapper, FieldInput } from "@/components/inputfield";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import * as d from "@/components/ui/dialog";
@@ -65,15 +60,36 @@ export const ProjectFormGeneric = ({
         <d.DialogDescription>{description}</d.DialogDescription>
       </d.DialogHeader>
       <f.FieldGroup>
-        <FieldInput name="name" register={register} error={errors.name} />
         <FieldInput
+          label="projects"
+          name="name"
+          register={register}
+          error={errors.name}
+        />
+        <FieldInput
+          label="projects"
           name="description"
           register={register}
           error={errors.description}
         />
-        <FieldInput name="start" register={register} error={errors.start} />
-        <FieldInput name="end" register={register} error={errors.end} />
-        <FieldInput name="source" register={register} error={errors.source} />
+        <FieldInput
+          label="projects"
+          name="start"
+          register={register}
+          error={errors.start}
+        />
+        <FieldInput
+          label="projects"
+          name="end"
+          register={register}
+          error={errors.end}
+        />
+        <FieldInput
+          label="projects"
+          name="source"
+          register={register}
+          error={errors.source}
+        />
         <LinksField control={control} register={register} errors={errors} />
         <f.Field orientation="horizontal">
           <f.FieldContent>
@@ -81,7 +97,7 @@ export const ProjectFormGeneric = ({
             <f.FieldDescription>
               Select if the project is featured
             </f.FieldDescription>
-            <FieldError error={errors.featured} />
+            <FieldErrorWrapper error={errors.featured} />
           </f.FieldContent>
           <Controller
             control={control}
@@ -113,15 +129,6 @@ export const ProjectFormGeneric = ({
   );
 };
 
-const FieldError = ({ error }: { error?: FieldError }) => {
-  if (!error) return null;
-  return (
-    <f.FieldDescription className="text-red-500">
-      {error.message}
-    </f.FieldDescription>
-  );
-};
-
 const LinksField = ({
   control,
   register,
@@ -142,33 +149,12 @@ const LinksField = ({
               <Trash2 />
             </Button>
           </div>
-          <FieldError error={errors.links?.[index]?.value} />
+          <FieldErrorWrapper error={errors.links?.[index]?.value} />
         </div>
       ))}
       <Button size="icon" type="button" onClick={() => append({ value: "" })}>
         <Plus />
       </Button>
     </div>
-  );
-};
-
-interface FieldInputProps<T extends FieldValues> {
-  name: FieldPath<T>;
-  register: UseFormRegister<T>;
-  error?: FieldError;
-}
-
-const FieldInput = ({ name, register, error }: FieldInputProps<ProjectDTO>) => {
-  return (
-    <f.Field>
-      <f.FieldLabel htmlFor="project-source">
-        {name.charAt(0).toUpperCase() + name.slice(1)}
-      </f.FieldLabel>
-      <Input id={`project-${name}`} {...register(name)} />
-      <f.FieldDescription>
-        Enter project {name} {["start", "end"].includes(name) && "date"}
-      </f.FieldDescription>
-      <FieldError error={error} />
-    </f.Field>
   );
 };
