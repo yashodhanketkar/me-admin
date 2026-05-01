@@ -12,7 +12,7 @@ export const ProjectsList = () => {
   if (!data) return <p>Error: "No data!"</p>;
 
   return (
-    <div className="h-[85vh] flex flex-col bg-card border text-card-foreground shadow-sm rounded-xl overflow-hidden">
+    <div className="h-[82vh] flex flex-col bg-card border text-card-foreground shadow-sm rounded-xl overflow-hidden">
       <div className="p-6 pb-4 shrink-0 border-b bg-muted/5">
         <h2 className="text-2xl font-bold tracking-tight">Projects</h2>
         <h3 className="text-sm text-muted-foreground font-medium">

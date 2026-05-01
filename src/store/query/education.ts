@@ -20,7 +20,7 @@ export const useEducationsQuery = () => {
     mutationKey: ["create"],
     mutationFn: (payload: EducationForm) => createEducation(payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["educations", "dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["educations"] });
     },
   });
 
@@ -29,7 +29,7 @@ export const useEducationsQuery = () => {
     mutationFn: ({ id, payload }: { id: string; payload: EducationForm }) =>
       updateEducation(id, payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["educations", "dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["educations"] });
     },
   });
 
@@ -37,7 +37,7 @@ export const useEducationsQuery = () => {
     mutationKey: ["delete"],
     mutationFn: (id: string) => deleteEducation(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["educations", "dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["educations"] });
     },
   });
 

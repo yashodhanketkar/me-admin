@@ -4,56 +4,76 @@ import {
   createRouter,
   redirect,
   type RouteComponent,
+  useMatches,
 } from "@tanstack/react-router";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { Toaster } from "@/components/ui/sonner";
 
 import LoginPage from "./pages/auth/login";
 import RegisterPage from "./pages/auth/register";
 import BoardPage from "./pages/board";
+import ExperiencesPage from "./pages/experience";
 import HomePage from "./pages/home";
+import NotFoundPage from "./pages/notfound";
 import ProjectsPage from "./pages/projects";
+import PublicationsPage from "./pages/publication";
 import SkillsPage from "./pages/skills";
 
-const unProtectedRouteConfigs: RouteConfig[] = [
-  { path: "/login", component: LoginPage },
-  { path: "/register", component: RegisterPage },
-];
-
-const protectedRouteConfigs: RouteConfig[] = [
-  { path: "/board", component: BoardPage },
-  { path: "/skills", component: SkillsPage },
-  { path: "/projects", component: ProjectsPage },
-];
-
-const rootRoute = createRootRoute({
-  shellComponent: RootDocument,
-});
+declare module "@tanstack/react-router" {
+  interface StaticDataRouteOption {
+    title?: string;
+  }
+}
 
 interface RouteConfig {
   path: string;
   component: RouteComponent;
+  title: string;
 }
 
-const unProtectedRoutesFactory = (path: string, component: RouteComponent) =>
+const unProtectedRouteConfigs: RouteConfig[] = [
+  { path: "/login", component: LoginPage, title: "Login" },
+  { path: "/register", component: RegisterPage, title: "Register" },
+];
+
+const protectedRouteConfigs: RouteConfig[] = [
+  { path: "/board", component: BoardPage, title: "Dashboard" },
+  { path: "/home", component: HomePage, title: "Home" },
+  { path: "/skills", component: SkillsPage, title: "Skills" },
+  { path: "/projects", component: ProjectsPage, title: "Projects" },
+  { path: "/experiences", component: ExperiencesPage, title: "Experiences" },
+  { path: "/publications", component: PublicationsPage, title: "Publications" },
+];
+
+const rootRoute = createRootRoute({
+  shellComponent: RootDocument,
+  notFoundComponent: NotFoundPage,
+});
+
+const unProtectedRoutesFactory = (config: RouteConfig) =>
   createRoute({
     getParentRoute: () => rootRoute,
-    path: path,
-    component: component,
+    path: config.path,
+    component: config.component,
+    staticData: { title: config.title },
     beforeLoad: () => {
-      const token = localStorage.getItem("token");
-      if (token) throw redirect({ to: "/board" });
+      const token = Cookies.get("token");
+      if (token) throw redirect({ to: "/home" });
     },
   });
 
-const protectedRoutesFactory = (path: string, component: RouteComponent) =>
+const protectedRoutesFactory = (config: RouteConfig) =>
   createRoute({
     getParentRoute: () => rootRoute,
-    path: path,
-    component: component,
+    path: config.path,
+    component: config.component,
+    staticData: { title: config.title },
     beforeLoad: () => {
-      const token = localStorage.getItem("token");
+      const token = Cookies.get("token");
       if (!token) throw redirect({ to: "/login" });
     },
   });
@@ -65,11 +85,11 @@ const homeRoute = createRoute({
 });
 
 const unProtectedRoute = unProtectedRouteConfigs.map((config) => {
-  return unProtectedRoutesFactory(config.path, config.component);
+  return unProtectedRoutesFactory(config);
 });
 
 const protectedRoutes = protectedRouteConfigs.map((config) => {
-  return protectedRoutesFactory(config.path, config.component);
+  return protectedRoutesFactory(config);
 });
 
 export const router = createRouter({
@@ -81,10 +101,22 @@ export const router = createRouter({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const matches = useMatches();
+
+  useEffect(() => {
+    const lastMatch = [...matches].reverse().find((d) => d.staticData?.title);
+    const title = lastMatch?.staticData?.title;
+
+    document.title = title ? title : "Yashodhan | Admin";
+  }, [matches]);
+
   return (
     <div className="w-screen min-h-screen flex flex-col justify-between">
       <Header />
-      <main className="container mt-4 mb-auto mx-auto">{children}</main>
+      <main className="container mt-4 mb-auto mx-auto">
+        {children}
+        <Toaster position="top-center" />
+      </main>
       <Footer />
     </div>
   );

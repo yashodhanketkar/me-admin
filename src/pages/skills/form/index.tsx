@@ -5,24 +5,15 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import * as d from "@/components/ui/dialog";
 import { FieldGroup } from "@/components/ui/field";
 import { useSkillsQuery } from "@/store/query/skill";
 import type { SkillDTO } from "@/types/dto";
 
 import { type SkillDict, skillFormatter } from "../common";
 import { SelectCategory } from "./categoryselector";
-import { skillSchema } from "./form";
 import { InputName } from "./nameinput";
+import { skillSchema } from "./schema";
 
 export const SkillsForm = () => {
   const {
@@ -40,6 +31,8 @@ export const SkillsForm = () => {
   const { getSkillsQuery, createSkillMutation } = useSkillsQuery();
   const { data, isLoading, isError } = getSkillsQuery;
   const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+
   let dict: SkillDict = [];
 
   const selectedCategory = watch("category");
@@ -56,28 +49,27 @@ export const SkillsForm = () => {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger>
-        <Button
-          size="icon"
-          className="fixed bottom-10 right-10 h-14 w-14 rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95"
-          title="Add skill"
-        >
-          <Plus className="h-6 w-6" />
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+    <d.Dialog open={open} onOpenChange={setOpen}>
+      <Button
+        size="icon"
+        className="fixed bottom-10 right-10 h-14 w-14 rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95"
+        title="Add skill"
+        onClick={() => setOpen(true)}
+      >
+        <Plus className="h-6 w-6" />
+      </Button>
+      <d.DialogContent className="sm:max-w-[425px]">
         <form
           onSubmit={handleSubmit(onSubmit)}
           onChange={() => setError("")}
           className="space-y-6"
         >
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold tracking-tight">
+          <d.DialogHeader>
+            <d.DialogTitle className="text-2xl font-bold tracking-tight">
               Skills
-            </DialogTitle>
-            <DialogDescription>Add your skills</DialogDescription>
-          </DialogHeader>
+            </d.DialogTitle>
+            <d.DialogDescription>Add your skills</d.DialogDescription>
+          </d.DialogHeader>
           <FieldGroup className="space-y-4 py-2">
             <SelectCategory
               register={register}
@@ -93,16 +85,16 @@ export const SkillsForm = () => {
               </p>
             )}
           </FieldGroup>
-          <DialogFooter className="mt-4">
+          <d.DialogFooter className="mt-4">
             <ButtonGroup orientation="horizontal" className="gap-4">
-              <DialogClose>Cancel</DialogClose>
+              <d.DialogClose>Cancel</d.DialogClose>
               <Button type="submit" variant="ghost">
                 Create
               </Button>
             </ButtonGroup>
-          </DialogFooter>
+          </d.DialogFooter>
         </form>
-      </DialogContent>
-    </Dialog>
+      </d.DialogContent>
+    </d.Dialog>
   );
 };

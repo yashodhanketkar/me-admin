@@ -1,6 +1,5 @@
+import Cookies from "js-cookie";
 import { create } from "zustand";
-
-import { setAuthHeader } from "@/api/client";
 
 interface IAuthState {
   token: string | null;
@@ -8,17 +7,30 @@ interface IAuthState {
 }
 
 export const useAuthStore = create<IAuthState>((set) => ({
-  token: localStorage.getItem("token"),
-
+  token: Cookies.get("token") || null,
   setToken: (token) => {
     if (token) {
-      localStorage.setItem("token", token);
-      setAuthHeader(token);
+      const exp = parseJwtExpiry(token);
+
+      if (exp) {
+        const expDate = new Date(exp * 1000);
+        document.cookie = `token=${token}; expires=${expDate}; path=/`;
+      }
     } else {
-      localStorage.removeItem("token");
-      setAuthHeader(null);
+      document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
     }
 
     set({ token });
   },
 }));
+
+export const parseJwtExpiry = (token: string) => {
+  try {
+    const base64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+    const payload = JSON.parse(window.atob(base64));
+    return payload.exp;
+  } catch (err) {
+    console.error("Failed to parse JWT", err);
+    return null;
+  }
+};

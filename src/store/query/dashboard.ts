@@ -2,21 +2,21 @@ import { useQuery } from "@tanstack/react-query";
 
 import { fetchEducations } from "@/api/education";
 import { fetchProjects } from "@/api/project";
-import { fetchResearchs } from "@/api/research";
+import { fetchPublications } from "@/api/research";
 import { fetchSkills } from "@/api/skills";
 
 const fetchDashboard = async () => {
-  const [projects, skills, research, educations] = await Promise.all([
+  const [projects, skills, publication, educations] = await Promise.all([
     fetchProjects(),
     fetchSkills(),
-    fetchResearchs(),
+    fetchPublications(),
     fetchEducations(),
   ]);
 
   return {
     projects,
     skills,
-    research,
+    publication,
     educations,
   };
 };

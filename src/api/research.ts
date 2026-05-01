@@ -1,25 +1,28 @@
-import type { Research } from "@/types/types";
+import type { Publication } from "@/types/types";
 
 import { api } from "./client";
 
-export type ResearchForm = Partial<Research>;
+export type PublicationForm = Partial<Publication>;
 
-export const fetchResearchs = async (): Promise<Research[]> => {
+export const fetchPublications = async (): Promise<Publication[]> => {
   const res = await api.get("/publication");
   return res.data;
 };
 
-export const createResearch = async (payload: ResearchForm) => {
+export const createPublication = async (payload: PublicationForm) => {
   const res = await api.post("/publication", payload);
   return res.data;
 };
 
-export const updateResearch = async (id: string, payload: ResearchForm) => {
+export const updatePublication = async (
+  id: string,
+  payload: PublicationForm,
+) => {
   const res = await api.put(`/publication/${id}`, payload);
   return res.data;
 };
 
-export const deleteResearch = async (id: string) => {
+export const deletePublication = async (id: string) => {
   const res = await api.delete(`/publication/${id}`);
   return res.data;
 };

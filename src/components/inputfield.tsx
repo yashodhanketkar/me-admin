@@ -1,45 +1,111 @@
-import type {
-  FieldError,
-  FieldErrors,
-  FieldValues,
-  Path,
-  UseFormRegister,
+import { Plus, Trash2 } from "lucide-react";
+import {
+  type ArrayPath,
+  type Control,
+  type FieldError,
+  type FieldErrors,
+  type FieldPath,
+  type FieldValues,
+  type Path,
+  useFieldArray,
+  type UseFormRegister,
 } from "react-hook-form";
-import { get } from "react-hook-form";
 
-export interface InputFieldProps<T extends FieldValues> {
+import { Button } from "./ui/button";
+import * as f from "./ui/field";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+
+interface FieldInputProps<T extends FieldValues> {
+  name: FieldPath<T>;
   label: string;
-  name: Path<T>;
-  type?: string;
   register: UseFormRegister<T>;
-  errors: FieldErrors<T>;
-  required?: boolean;
+  error?: FieldError;
+  fType?: "input" | "textarea";
 }
 
-export const InputField = <T extends FieldValues>({
-  label,
+export const FieldInput = <T extends FieldValues>({
   name,
-  type,
+  label,
+  fType = "input",
+  register,
+  error,
+}: FieldInputProps<T>) => {
+  return (
+    <f.Field>
+      <f.FieldLabel htmlFor={label + "-" + name}>
+        {name.charAt(0).toUpperCase() + name.slice(1)}
+      </f.FieldLabel>
+      {fType === "input" ? (
+        <Input id={`experience-${name}`} {...register(name)} />
+      ) : (
+        <Textarea rows={3} id={`experience-${name}`} {...register(name)} />
+      )}
+      <f.FieldDescription>
+        Enter {`${label} 's ${name} `}
+        {["start", "end"].includes(name) && "date"}
+      </f.FieldDescription>
+      <FieldErrorWrapper error={error} />
+    </f.Field>
+  );
+};
+
+export const FieldErrorWrapper = ({ error }: { error?: FieldError }) => {
+  if (!error) return null;
+  return (
+    <f.FieldDescription className="text-red-500">
+      {error.message}
+    </f.FieldDescription>
+  );
+};
+
+export interface LinksFieldProps<T extends FieldValues> {
+  name: ArrayPath<T>;
+  control: Control<T>;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+}
+
+export const LinksField = <T extends FieldValues>({
+  name,
+  control,
   register,
   errors,
-  required,
-}: InputFieldProps<T>) => {
-  const err: FieldError | undefined = get(errors, name);
+}: LinksFieldProps<T>) => {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name,
+  });
 
   return (
-    <div className="flex flex-col gap-1 mb-4">
-      <label htmlFor={name} className="mb-1 text-sm font-bold capitalize">
-        {label}
-      </label>
-      <input
-        {...register(name, { required })}
-        type={type || "text"}
-        className="p-2 rounded bg-white shadow shadow-black/25 w-full"
-        id={name}
-      />
-      {err && (
-        <span className="text-red-500 text-xs mt-1">{`*${err.message} is required`}</span>
-      )}
-    </div>
+    <f.Field>
+      <f.FieldLabel htmlFor={name + "-text-array"}>
+        {name.charAt(0).toUpperCase() + name.slice(1)}
+      </f.FieldLabel>
+      <div className="space-y-4">
+        {fields.map((field, index) => {
+          const fieldError = (errors[name] as any)?.[index]?.value;
+
+          return (
+            <div key={field.id}>
+              <div className="flex gap-2">
+                <Input {...register(`${name}.${index}.value` as Path<T>)} />
+                <Button size="icon" type="button" onClick={() => remove(index)}>
+                  <Trash2 />
+                </Button>
+              </div>
+              <FieldErrorWrapper error={fieldError} />
+            </div>
+          );
+        })}
+        <Button
+          size="icon"
+          type="button"
+          onClick={() => append({ value: "" } as any)}
+        >
+          <Plus />
+        </Button>
+      </div>
+    </f.Field>
   );
 };
