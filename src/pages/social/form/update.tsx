@@ -16,7 +16,7 @@ export const UpdateSocial = ({ social }: { social: Social }) => {
   const handleUpdate = async (data: SocialDTO) => {
     updateSocialMutation.mutate({
       id: social.id,
-      payload: { ...data },
+      payload: data,
     });
   };
 

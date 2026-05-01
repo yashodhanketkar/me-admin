@@ -22,6 +22,7 @@ export const useSocialsQuery = () => {
     mutationFn: (payload: SocialForm) => createSocial(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["socials"] });
+      toast.success("Created social");
     },
   });
 
@@ -40,6 +41,7 @@ export const useSocialsQuery = () => {
     mutationFn: (id: string) => deleteSocial(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["socials"] });
+      toast.success("Deleted social");
     },
   });
 

@@ -16,6 +16,7 @@ import { Toaster } from "@/components/ui/sonner";
 import LoginPage from "./pages/auth/login";
 import RegisterPage from "./pages/auth/register";
 import BoardPage from "./pages/board";
+import EducationsPage from "./pages/education";
 import ExperiencesPage from "./pages/experience";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/notfound";
@@ -49,6 +50,7 @@ const protectedRouteConfigs: RouteConfig[] = [
   { path: "/experiences", component: ExperiencesPage, title: "Experiences" },
   { path: "/publications", component: PublicationsPage, title: "Publications" },
   { path: "/socials", component: SocialsPage, title: "Socials" },
+  { path: "/educations", component: EducationsPage, title: "Education" },
 ];
 
 const rootRoute = createRootRoute({

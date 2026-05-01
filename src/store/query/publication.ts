@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import {
   createPublication,
@@ -21,6 +22,7 @@ export const usePublicationsQuery = () => {
     mutationFn: (payload: PublicationForm) => createPublication(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["researchs"] });
+      toast.success("Created publication");
     },
   });
 
@@ -30,6 +32,7 @@ export const usePublicationsQuery = () => {
       updatePublication(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["researchs"] });
+      toast.success("Updated publication");
     },
   });
 
@@ -38,6 +41,7 @@ export const usePublicationsQuery = () => {
     mutationFn: (id: string) => deletePublication(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["researchs"] });
+      toast.success("Deleted publication");
     },
   });
 
