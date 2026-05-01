@@ -6,6 +6,7 @@ import {
   type RouteComponent,
   useMatches,
 } from "@tanstack/react-router";
+import Cookies from "js-cookie";
 import { useEffect } from "react";
 
 import { Footer } from "@/components/footer";
@@ -17,6 +18,7 @@ import RegisterPage from "./pages/auth/register";
 import BoardPage from "./pages/board";
 import ExperiencesPage from "./pages/experience";
 import HomePage from "./pages/home";
+import NotFoundPage from "./pages/notfound";
 import ProjectsPage from "./pages/projects";
 import PublicationsPage from "./pages/publication";
 import SkillsPage from "./pages/skills";
@@ -49,6 +51,7 @@ const protectedRouteConfigs: RouteConfig[] = [
 
 const rootRoute = createRootRoute({
   shellComponent: RootDocument,
+  notFoundComponent: NotFoundPage,
 });
 
 const unProtectedRoutesFactory = (config: RouteConfig) =>
@@ -58,7 +61,7 @@ const unProtectedRoutesFactory = (config: RouteConfig) =>
     component: config.component,
     staticData: { title: config.title },
     beforeLoad: () => {
-      const token = localStorage.getItem("token");
+      const token = Cookies.get("token");
       if (token) throw redirect({ to: "/home" });
     },
   });
@@ -70,7 +73,7 @@ const protectedRoutesFactory = (config: RouteConfig) =>
     component: config.component,
     staticData: { title: config.title },
     beforeLoad: () => {
-      const token = localStorage.getItem("token");
+      const token = Cookies.get("token");
       if (!token) throw redirect({ to: "/login" });
     },
   });

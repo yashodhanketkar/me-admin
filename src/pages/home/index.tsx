@@ -15,7 +15,7 @@ const HomePage = () => {
           <span className="font-bold mb-6 text-6xl">Yashodhan | Admin</span>
         </h1>
       </div>
-      {!loggedIn && (
+      {!loggedIn ? (
         <div className="text-center text-muted-foreground mt-4 italic">
           {"Please "}
           <Link className="font-bold" to="/login">
@@ -26,6 +26,14 @@ const HomePage = () => {
             register
           </Link>
           {" to access."}
+        </div>
+      ) : (
+        <div className="text-center text-muted-foreground mt-4 italic">
+          {"Please visit "}
+          <Link className="font-bold" to="/board">
+            dashboard
+          </Link>
+          {" for more info."}
         </div>
       )}
     </div>
