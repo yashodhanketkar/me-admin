@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import * as d from "@/components/ui/dialog";
 import * as f from "@/components/ui/field";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ExperienceDTO } from "@/types/dto";
 
 import { experienceSchema } from "./schema";
@@ -44,7 +45,7 @@ export const ExperienceFormGeneric = ({
     <form
       onSubmit={handleSubmit(handleInternalSubmit)}
       onChange={() => setError("")}
-      className="space-y-6"
+      className="space-y-6 max-h-[82vh] flex flex-col"
     >
       <d.DialogHeader>
         <d.DialogTitle className="text-2xl font-bold tracking-tight">
@@ -52,38 +53,41 @@ export const ExperienceFormGeneric = ({
         </d.DialogTitle>
         <d.DialogDescription>{description}</d.DialogDescription>
       </d.DialogHeader>
-      <f.FieldGroup>
-        <FieldInput
-          label="experience"
-          name="name"
-          register={register}
-          error={errors.name}
-        />
-        <FieldInput
-          label="experience"
-          name="company"
-          register={register}
-          error={errors.company}
-        />
-        <FieldInput
-          label="experience"
-          name="description"
-          register={register}
-          error={errors.description}
-        />
-        <FieldInput
-          label="experience"
-          name="start"
-          register={register}
-          error={errors.start}
-        />
-        <FieldInput
-          label="experience"
-          name="end"
-          register={register}
-          error={errors.end}
-        />
-      </f.FieldGroup>
+      <ScrollArea className="flex-1 min-h-0 pr-4">
+        <f.FieldGroup>
+          <FieldInput
+            label="experience"
+            name="name"
+            register={register}
+            error={errors.name}
+          />
+          <FieldInput
+            label="experience"
+            name="company"
+            register={register}
+            error={errors.company}
+          />
+          <FieldInput
+            label="experience"
+            name="description"
+            fType="textarea"
+            register={register}
+            error={errors.description}
+          />
+          <FieldInput
+            label="experience"
+            name="start"
+            register={register}
+            error={errors.start}
+          />
+          <FieldInput
+            label="experience"
+            name="end"
+            register={register}
+            error={errors.end}
+          />
+        </f.FieldGroup>
+      </ScrollArea>
       <d.DialogFooter className="mt-4">
         <ButtonGroup orientation="horizontal" className="gap-4">
           <d.DialogClose>Cancel</d.DialogClose>

@@ -54,7 +54,7 @@ export const PublicationFormGeneric = ({
     <form
       onSubmit={handleSubmit(handleInternalSubmit)}
       onChange={() => setError("")}
-      className="space-y-6 h-[82vh] flex flex-col overflow-hidden"
+      className="space-y-6 max-h-[82vh] flex flex-col"
     >
       <d.DialogHeader>
         <d.DialogTitle className="text-2xl font-bold tracking-tight">

@@ -22,6 +22,7 @@ import NotFoundPage from "./pages/notfound";
 import ProjectsPage from "./pages/projects";
 import PublicationsPage from "./pages/publication";
 import SkillsPage from "./pages/skills";
+import SocialsPage from "./pages/social";
 
 declare module "@tanstack/react-router" {
   interface StaticDataRouteOption {
@@ -47,6 +48,7 @@ const protectedRouteConfigs: RouteConfig[] = [
   { path: "/projects", component: ProjectsPage, title: "Projects" },
   { path: "/experiences", component: ExperiencesPage, title: "Experiences" },
   { path: "/publications", component: PublicationsPage, title: "Publications" },
+  { path: "/socials", component: SocialsPage, title: "Socials" },
 ];
 
 const rootRoute = createRootRoute({

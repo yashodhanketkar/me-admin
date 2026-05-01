@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import {
   createSocial,
@@ -30,6 +31,7 @@ export const useSocialsQuery = () => {
       updateSocial(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["socials"] });
+      toast.success("Updated social");
     },
   });
 

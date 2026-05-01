@@ -44,11 +44,13 @@ export type Publication = {
   featured: boolean;
 };
 
+export type SocialType = "linkedin" | "home" | "github" | "web" | "orcid";
+
 export type Social = {
   id: string;
   name: string;
   url: string;
-  type: string;
+  type: SocialType;
 };
 
 export type Skill = {
