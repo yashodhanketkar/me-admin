@@ -1,3 +1,5 @@
+import type { SocialType } from "./types";
+
 export type User = {
   email: string;
   password: string;
@@ -43,7 +45,7 @@ export type PublicationDTO = {
 export type SocialDTO = {
   name: string;
   url: string;
-  type: string;
+  type: SocialType;
 };
 
 export type SkillDTO = {

@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import {
   createEducation,
@@ -21,6 +22,7 @@ export const useEducationsQuery = () => {
     mutationFn: (payload: EducationForm) => createEducation(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["educations"] });
+      toast.success("Created education");
     },
   });
 
@@ -30,6 +32,7 @@ export const useEducationsQuery = () => {
       updateEducation(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["educations"] });
+      toast.success("Updated education");
     },
   });
 
@@ -38,6 +41,7 @@ export const useEducationsQuery = () => {
     mutationFn: (id: string) => deleteEducation(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["educations"] });
+      toast.success("Deleted education");
     },
   });
 

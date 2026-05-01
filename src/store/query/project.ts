@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import {
   createProject,
@@ -21,6 +22,7 @@ export const useProjectsQuery = () => {
     mutationFn: (payload: ProjectForm) => createProject(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
+      toast.success("Created project");
     },
   });
 
@@ -30,6 +32,7 @@ export const useProjectsQuery = () => {
       updateProject(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
+      toast.success("Updated project");
     },
   });
 
@@ -38,6 +41,7 @@ export const useProjectsQuery = () => {
     mutationFn: (id: string) => deleteProject(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
+      toast.success("Deleted project");
     },
   });
 

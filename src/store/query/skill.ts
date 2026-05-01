@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import {
   createSkill,
@@ -21,6 +22,7 @@ export const useSkillsQuery = () => {
     mutationFn: (payload: SkillForm) => createSkill(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["skills"] });
+      toast.success("Created skills");
     },
   });
 
@@ -30,6 +32,7 @@ export const useSkillsQuery = () => {
       updateSkill(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["skills"] });
+      toast.success("Updated skills");
     },
   });
 
@@ -38,6 +41,7 @@ export const useSkillsQuery = () => {
     mutationFn: (id: string) => deleteSkill(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["skills"] });
+      toast.success("Deleted skills");
     },
   });
 

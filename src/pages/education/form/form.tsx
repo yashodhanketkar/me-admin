@@ -8,31 +8,30 @@ import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import * as d from "@/components/ui/dialog";
 import * as f from "@/components/ui/field";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import type { ExperienceDTO } from "@/types/dto";
+import type { EducationDTO } from "@/types/dto";
 
-import { experienceSchema } from "./schema";
-import { type ExperienceFormProps } from "./types";
+import { educationSchema } from "./schema";
+import { type EducationFormProps } from "./types";
 
-export const ExperienceFormGeneric = ({
+export const EducationFormGeneric = ({
   initialData,
   onSubmit,
   title,
   description,
   submitLabel,
-}: ExperienceFormProps) => {
+}: EducationFormProps) => {
   const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ExperienceDTO>({
-    resolver: zodResolver(experienceSchema),
-    defaultValues: initialData,
+  } = useForm<EducationDTO>({
+    resolver: zodResolver(educationSchema),
+    defaultValues: initialData as EducationDTO,
   });
 
-  const handleInternalSubmit: SubmitHandler<ExperienceDTO> = async (data) => {
+  const handleInternalSubmit: SubmitHandler<EducationDTO> = async (data) => {
     try {
       await onSubmit(data);
       reset();
@@ -45,7 +44,7 @@ export const ExperienceFormGeneric = ({
     <form
       onSubmit={handleSubmit(handleInternalSubmit)}
       onChange={() => setError("")}
-      className="space-y-6 max-h-[82vh] flex flex-col"
+      className="space-y-6 max-h-[82vh]"
     >
       <d.DialogHeader>
         <d.DialogTitle className="text-2xl font-bold tracking-tight">
@@ -53,41 +52,39 @@ export const ExperienceFormGeneric = ({
         </d.DialogTitle>
         <d.DialogDescription>{description}</d.DialogDescription>
       </d.DialogHeader>
-      <ScrollArea className="flex-1 min-h-0 pr-4">
-        <f.FieldGroup>
-          <FieldInput
-            label="experience"
-            name="name"
-            register={register}
-            error={errors.name}
-          />
-          <FieldInput
-            label="experience"
-            name="company"
-            register={register}
-            error={errors.company}
-          />
-          <FieldInput
-            label="experience"
-            name="description"
-            fType="textarea"
-            register={register}
-            error={errors.description}
-          />
-          <FieldInput
-            label="experience"
-            name="start"
-            register={register}
-            error={errors.start}
-          />
-          <FieldInput
-            label="experience"
-            name="end"
-            register={register}
-            error={errors.end}
-          />
-        </f.FieldGroup>
-      </ScrollArea>
+      <f.FieldGroup>
+        <FieldInput
+          label="educations"
+          name="degree"
+          register={register}
+          error={errors.degree}
+        />
+        <FieldInput
+          label="educations"
+          name="unviersity"
+          register={register}
+          error={errors.unviersity}
+        />
+        <FieldInput
+          label="educations"
+          name="heading"
+          fType="textarea"
+          register={register}
+          error={errors.heading}
+        />
+        <FieldInput
+          label="educations"
+          name="grades"
+          register={register}
+          error={errors.grades}
+        />
+        <FieldInput
+          label="educations"
+          name="end"
+          register={register}
+          error={errors.end}
+        />
+      </f.FieldGroup>
       <d.DialogFooter className="mt-4">
         <ButtonGroup orientation="horizontal" className="gap-4">
           <d.DialogClose>Cancel</d.DialogClose>

@@ -16,12 +16,14 @@ import { Toaster } from "@/components/ui/sonner";
 import LoginPage from "./pages/auth/login";
 import RegisterPage from "./pages/auth/register";
 import BoardPage from "./pages/board";
+import EducationsPage from "./pages/education";
 import ExperiencesPage from "./pages/experience";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/notfound";
 import ProjectsPage from "./pages/projects";
 import PublicationsPage from "./pages/publication";
 import SkillsPage from "./pages/skills";
+import SocialsPage from "./pages/social";
 
 declare module "@tanstack/react-router" {
   interface StaticDataRouteOption {
@@ -47,6 +49,8 @@ const protectedRouteConfigs: RouteConfig[] = [
   { path: "/projects", component: ProjectsPage, title: "Projects" },
   { path: "/experiences", component: ExperiencesPage, title: "Experiences" },
   { path: "/publications", component: PublicationsPage, title: "Publications" },
+  { path: "/socials", component: SocialsPage, title: "Socials" },
+  { path: "/educations", component: EducationsPage, title: "Education" },
 ];
 
 const rootRoute = createRootRoute({

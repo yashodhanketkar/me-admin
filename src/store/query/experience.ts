@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import {
   createExperience,
@@ -21,6 +22,7 @@ export const useExperiencesQuery = () => {
     mutationFn: (payload: ExperienceForm) => createExperience(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["experiences"] });
+      toast.success("Created experience");
     },
   });
 
@@ -30,6 +32,7 @@ export const useExperiencesQuery = () => {
       updateExperience(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["experiences"] });
+      toast.success("Updated experience");
     },
   });
 
@@ -38,6 +41,7 @@ export const useExperiencesQuery = () => {
     mutationFn: (id: string) => deleteExperience(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["experiences"] });
+      toast.success("Deleted experience");
     },
   });
 
