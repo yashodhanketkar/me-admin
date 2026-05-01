@@ -12,8 +12,8 @@ import type { SkillDTO } from "@/types/dto";
 
 import { type SkillDict, skillFormatter } from "../common";
 import { SelectCategory } from "./categoryselector";
-import { skillSchema } from "./form";
 import { InputName } from "./nameinput";
+import { skillSchema } from "./schema";
 
 export const SkillsForm = () => {
   const {
@@ -31,6 +31,8 @@ export const SkillsForm = () => {
   const { getSkillsQuery, createSkillMutation } = useSkillsQuery();
   const { data, isLoading, isError } = getSkillsQuery;
   const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+
   let dict: SkillDict = [];
 
   const selectedCategory = watch("category");
@@ -47,16 +49,15 @@ export const SkillsForm = () => {
   };
 
   return (
-    <d.Dialog>
-      <d.DialogTrigger>
-        <Button
-          size="icon"
-          className="fixed bottom-10 right-10 h-14 w-14 rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95"
-          title="Add skill"
-        >
-          <Plus className="h-6 w-6" />
-        </Button>
-      </d.DialogTrigger>
+    <d.Dialog open={open} onOpenChange={setOpen}>
+      <Button
+        size="icon"
+        className="fixed bottom-10 right-10 h-14 w-14 rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95"
+        title="Add skill"
+        onClick={() => setOpen(true)}
+      >
+        <Plus className="h-6 w-6" />
+      </Button>
       <d.DialogContent className="sm:max-w-[425px]">
         <form
           onSubmit={handleSubmit(onSubmit)}

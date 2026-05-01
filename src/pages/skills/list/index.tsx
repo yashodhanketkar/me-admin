@@ -15,7 +15,7 @@ export const SkillsList = () => {
   const dict = skillFormatter(data);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 mb-4">
       {dict.map(({ category, name }) => (
         <Card
           key={category}
