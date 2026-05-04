@@ -21,7 +21,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import type { SkillDTO } from "@/types/dto";
+import type { SkillDTO } from "@/types";
 
 import type { SkillDict } from "../common";
 

@@ -1,10 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import {
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+import * as n from "@/components/ui/navigation-menu";
 
 import type { NavPage } from "./types";
 
@@ -35,18 +31,21 @@ export const NavContent = ({
   numcols?: number;
 }) => {
   return (
-    <NavigationMenuItem>
-      <NavigationMenuTrigger className="bg-transparent font-semibold">
+    <n.NavigationMenuItem>
+      <n.NavigationMenuTrigger
+        id={`${title.toLocaleLowerCase()}-trigger-button`}
+        className="bg-transparent font-semibold"
+      >
         {title}
-      </NavigationMenuTrigger>
-      <NavigationMenuContent>
+      </n.NavigationMenuTrigger>
+      <n.NavigationMenuContent>
         <ul className={`grid gap-1 p-1 md:grid-cols-${numcols}`}>
           {pages.sort(sorter).map((page) => (
             <LinkFactory key={page.serial} page={page} />
           ))}
         </ul>
-      </NavigationMenuContent>
-    </NavigationMenuItem>
+      </n.NavigationMenuContent>
+    </n.NavigationMenuItem>
   );
 };
 

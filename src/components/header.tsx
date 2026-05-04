@@ -3,6 +3,7 @@ import { Moon, Sun } from "lucide-react";
 import { useThemeStore } from "@/store/theme";
 
 import { AuthLinks, MainNavigation } from "./navigation";
+import { SearchBox } from "./navigation/searchbox";
 import { Button } from "./ui/button";
 
 export const Header = () => {
@@ -13,7 +14,8 @@ export const Header = () => {
           Yashodhan{" "}
           <span className="text-muted-foreground font-normal">| Admin</span>
         </h3>
-        <div className="flex flex-row">
+        <div className="flex flex-row justify-center items-center">
+          <SearchBox />
           <MainNavigation />
           <AuthLinks />
           <ThemeButton />
@@ -28,6 +30,7 @@ const ThemeButton = () => {
 
   return (
     <Button
+      id="theme-button"
       size="icon-lg"
       variant="ghost"
       className="my-auto"

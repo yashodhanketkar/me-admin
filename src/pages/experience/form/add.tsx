@@ -1,6 +1,7 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
+import { NewButton } from "@/components/addbutton";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useExperiencesQuery } from "@/store/query/experience";
@@ -20,14 +21,7 @@ export const CreateExperience = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button
-        size="icon"
-        className="fixed bottom-10 right-10 h-14 w-14 rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95"
-        title="Add Experience"
-        onClick={() => setOpen(true)}
-      >
-        <Plus className="h-6 w-6" />
-      </Button>
+      <NewButton title="Add Experience" setOpen={setOpen} />
       <DialogContent>
         <ExperienceFormGeneric
           title="New Experience"

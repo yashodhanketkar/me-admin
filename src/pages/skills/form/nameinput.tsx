@@ -2,7 +2,7 @@ import type { FieldErrors, UseFormRegister } from "react-hook-form";
 
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import type { SkillDTO } from "@/types/dto";
+import type { SkillDTO } from "@/types";
 
 interface InputNameProps {
   register: UseFormRegister<SkillDTO>;

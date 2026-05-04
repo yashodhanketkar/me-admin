@@ -1,5 +1,11 @@
+import { formatForDisplay } from "@tanstack/react-hotkeys";
 import { Link } from "@tanstack/react-router";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useAuthStore } from "@/store/auth";
 
 const HomePage = () => {
@@ -28,13 +34,22 @@ const HomePage = () => {
           {" to access."}
         </div>
       ) : (
-        <div className="text-center text-muted-foreground mt-4 italic">
-          {"Please visit "}
-          <Link className="font-bold" to="/board">
-            dashboard
-          </Link>
-          {" for more info."}
-        </div>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <div className="text-center text-muted-foreground mt-4 italic">
+                {"Please visit "}
+                <Link className="font-bold" to="/board">
+                  dashboard
+                </Link>
+                {" for more info."}
+              </div>
+            }
+          />
+          <TooltipContent side="bottom">
+            {formatForDisplay("Shift+D")}
+          </TooltipContent>
+        </Tooltip>
       )}
     </div>
   );

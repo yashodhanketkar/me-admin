@@ -14,6 +14,7 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
 
+import { TooltipProvider } from "./components/ui/tooltip";
 import {
   BoardPage,
   EducationsPage,
@@ -27,6 +28,7 @@ import {
   SkillsPage,
   SocialsPage,
 } from "./pages";
+import { HotkeysProvider } from "./providers/hotkeys";
 
 declare module "@tanstack/react-router" {
   interface StaticDataRouteOption {
@@ -124,15 +126,19 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   }, [matches]);
 
   return (
-    <ThemeProvider>
-      <div className="w-screen min-h-screen flex flex-col justify-between">
-        <Header />
-        <main className="container mt-4 mb-auto mx-auto">
-          {children}
-          <Toaster position="top-center" />
-        </main>
-        <Footer />
-      </div>
-    </ThemeProvider>
+    <HotkeysProvider>
+      <TooltipProvider>
+        <ThemeProvider>
+          <div className="w-screen min-h-screen flex flex-col justify-between">
+            <Header />
+            <main className="container mt-4 mb-auto mx-auto">
+              {children}
+              <Toaster position="top-center" />
+            </main>
+            <Footer />
+          </div>
+        </ThemeProvider>
+      </TooltipProvider>
+    </HotkeysProvider>
   );
 }
