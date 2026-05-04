@@ -1,5 +1,10 @@
-import { MainNavigation } from "./navigation";
-import { AuthLinks } from "./navigation/authbutton";
+import { Moon, Sun } from "lucide-react";
+
+import { useThemeStore } from "@/store/theme";
+
+import { AuthLinks, MainNavigation } from "./navigation";
+import { SearchBox } from "./navigation/searchbox";
+import { Button } from "./ui/button";
 
 export const Header = () => {
   return (
@@ -9,11 +14,29 @@ export const Header = () => {
           Yashodhan{" "}
           <span className="text-muted-foreground font-normal">| Admin</span>
         </h3>
-        <div className="flex flex-row">
+        <div className="flex flex-row justify-center items-center">
+          <SearchBox />
           <MainNavigation />
           <AuthLinks />
+          <ThemeButton />
         </div>
       </div>
     </header>
+  );
+};
+
+const ThemeButton = () => {
+  const { theme, setTheme } = useThemeStore();
+
+  return (
+    <Button
+      id="theme-button"
+      size="icon-lg"
+      variant="ghost"
+      className="my-auto"
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+    >
+      {theme === "dark" ? <Moon fill="yellow" /> : <Sun fill="orange" />}
+    </Button>
   );
 };

@@ -5,7 +5,7 @@ import type {
   UseFormRegister,
 } from "react-hook-form";
 
-import type { PublicationDTO as RawDTO } from "@/types/dto";
+import type { PublicationDTO as RawDTO } from "@/types";
 
 export interface PublicationDTO extends Omit<RawDTO, "authors"> {
   authors: { value: string }[];

@@ -16,7 +16,7 @@ export const publicationSchema = z.object({
     )
     .min(1, "doi is required"),
   journal: z.string().min(1, "journal is required"),
-  featured: z.boolean(),
+  featured: z.boolean().default(false),
   authors: z.array(
     z.object({
       value: z.string().min(1, "Author is required"),

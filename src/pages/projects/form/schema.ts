@@ -19,7 +19,7 @@ export const projectSchema = z.object({
   start: dateValidator,
   end: dateValidator,
   source: z.string().min(1, "Source is required"),
-  featured: z.boolean(),
+  featured: z.boolean().default(false),
   links: z.array(
     z.object({
       value: z.string().min(1, "Link is required"),

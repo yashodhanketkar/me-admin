@@ -9,9 +9,9 @@ import { ButtonGroup } from "@/components/ui/button-group";
 import * as d from "@/components/ui/dialog";
 import * as f from "@/components/ui/field";
 import * as s from "@/components/ui/select";
-import type { SocialDTO } from "@/types/dto";
+import type { SocialDTO } from "@/types";
 
-import { socialSchema } from "./schema";
+import { socialOptions, socialSchema } from "./schema";
 import { type SocialFormProps } from "./types";
 
 export const SocialFormGeneric = ({
@@ -93,8 +93,11 @@ export const SocialFormGeneric = ({
                   <s.SelectValue placeholder="Select a type" />
                 </s.SelectTrigger>
                 <s.SelectContent>
-                  <s.SelectItem value="linkedin">Linkedin</s.SelectItem>
-                  <s.SelectItem value="github">Github</s.SelectItem>
+                  {socialOptions
+                    .sort((a, b) => a.order - b.order)
+                    .map(({ title, label }) => (
+                      <s.SelectItem value={title}>{label}</s.SelectItem>
+                    ))}
                 </s.SelectContent>
               </s.Select>
             </f.Field>

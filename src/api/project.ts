@@ -1,4 +1,4 @@
-import type { Project } from "@/types/types";
+import type { Project } from "@/types";
 
 import { api } from "./client";
 

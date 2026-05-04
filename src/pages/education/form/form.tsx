@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import * as d from "@/components/ui/dialog";
 import * as f from "@/components/ui/field";
-import type { EducationDTO } from "@/types/dto";
+import type { EducationDTO } from "@/types";
 
 import { educationSchema } from "./schema";
 import { type EducationFormProps } from "./types";
@@ -28,13 +28,13 @@ export const EducationFormGeneric = ({
     reset,
   } = useForm<EducationDTO>({
     resolver: zodResolver(educationSchema),
-    defaultValues: initialData as EducationDTO,
+    values: initialData as EducationDTO,
   });
 
   const handleInternalSubmit: SubmitHandler<EducationDTO> = async (data) => {
     try {
       await onSubmit(data);
-      reset();
+      if (!initialData) reset();
     } catch (e) {
       setError("Something went wrong");
     }

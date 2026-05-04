@@ -1,4 +1,4 @@
-import type { Publication } from "@/types/types";
+import type { Publication } from "@/types";
 
 import { api } from "./client";
 

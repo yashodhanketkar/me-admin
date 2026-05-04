@@ -9,7 +9,7 @@ import { ButtonGroup } from "@/components/ui/button-group";
 import * as d from "@/components/ui/dialog";
 import * as f from "@/components/ui/field";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { ExperienceDTO } from "@/types/dto";
+import type { ExperienceDTO } from "@/types";
 
 import { experienceSchema } from "./schema";
 import { type ExperienceFormProps } from "./types";
@@ -29,13 +29,13 @@ export const ExperienceFormGeneric = ({
     reset,
   } = useForm<ExperienceDTO>({
     resolver: zodResolver(experienceSchema),
-    defaultValues: initialData,
+    values: initialData as ExperienceDTO,
   });
 
   const handleInternalSubmit: SubmitHandler<ExperienceDTO> = async (data) => {
     try {
       await onSubmit(data);
-      reset();
+      if (!initialData) reset();
     } catch (e) {
       setError("Something went wrong");
     }

@@ -34,12 +34,13 @@ export const ProjectFormGeneric = ({
     reset,
   } = useForm<ProjectDTO>({
     resolver: zodResolver(projectSchema),
-    defaultValues: initialData || { links: [] },
+    values: initialData as ProjectDTO,
   });
 
   const handleInternalSubmit: SubmitHandler<ProjectDTO> = async (data) => {
     try {
       await onSubmit(data);
+      if (!initialData) reset();
       reset();
     } catch (e) {
       setError("Something went wrong");

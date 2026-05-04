@@ -5,7 +5,7 @@ import type {
   UseFormRegister,
 } from "react-hook-form";
 
-import type { ExperienceDTO } from "@/types/dto";
+import type { ExperienceDTO } from "@/types";
 
 export interface ExperienceFormProps {
   initialData?: Partial<ExperienceDTO>;

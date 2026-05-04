@@ -59,9 +59,27 @@ export const BoardPage = () => {
             <CardTitle>Recent Projects</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              Manage your latest work entries.
+            <p className="text-base text-muted-foreground">
+              Latest ongoing project entries.
             </p>
+            <ul className="mt-2">
+              {projects
+                .filter((p) => !p.end)
+                .sort((a, b) => a.end.localeCompare(b.end))
+                .slice(0, 2)
+                .map((p) => (
+                  <li key={p.id} className="text-muted-foreground">
+                    <Link
+                      to={p.source}
+                      target="_blank"
+                      rel="noreferrer nofollow noopener"
+                    >
+                      {p.name + " ... "}
+                      <span className="italic">({p.source})</span>
+                    </Link>
+                  </li>
+                ))}
+            </ul>
           </CardContent>
         </Card>
         <Card className="col-span-3">

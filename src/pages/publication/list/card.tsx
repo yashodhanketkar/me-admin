@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import * as c from "@/components/ui/card";
 import { usePublicationsQuery } from "@/store/query/publication";
-import type { Publication } from "@/types/types";
+import type { Publication } from "@/types";
 
 import { UpdatePublication } from "../form/update";
 import { DeleteButton } from "./delete";

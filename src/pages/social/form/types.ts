@@ -5,7 +5,7 @@ import type {
   UseFormRegister,
 } from "react-hook-form";
 
-import type { SocialDTO } from "@/types/dto";
+import type { SocialDTO } from "@/types";
 
 export interface SocialFormProps {
   initialData?: Partial<SocialDTO>;

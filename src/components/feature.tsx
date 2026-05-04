@@ -3,10 +3,10 @@ import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const FeatureButton = ({
-  featured,
+  featured = false,
   toggleFeatured,
 }: {
-  featured: boolean;
+  featured?: boolean;
   toggleFeatured: () => void;
 }) => {
   return (

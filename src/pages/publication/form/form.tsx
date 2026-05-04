@@ -35,16 +35,13 @@ export const PublicationFormGeneric = ({
     reset,
   } = useForm<PublicationDTO>({
     resolver: zodResolver(publicationSchema),
-    defaultValues: initialData || {
-      authors: [],
-      featured: false,
-    },
+    defaultValues: initialData as PublicationDTO,
   });
 
   const handleInternalSubmit: SubmitHandler<PublicationDTO> = async (data) => {
     try {
       await onSubmit(data);
-      reset();
+      if (!initialData) reset();
     } catch (e) {
       setError("Something went wrong");
     }

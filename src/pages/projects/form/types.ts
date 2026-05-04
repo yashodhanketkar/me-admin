@@ -5,7 +5,7 @@ import type {
   UseFormRegister,
 } from "react-hook-form";
 
-import type { ProjectDTO as RawDTO } from "@/types/dto";
+import type { ProjectDTO as RawDTO } from "@/types";
 
 export interface ProjectDTO extends Omit<RawDTO, "links"> {
   links: { value: string }[];
