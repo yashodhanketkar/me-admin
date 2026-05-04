@@ -13,17 +13,19 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
 
-import LoginPage from "./pages/auth/login";
-import RegisterPage from "./pages/auth/register";
-import BoardPage from "./pages/board";
-import EducationsPage from "./pages/education";
-import ExperiencesPage from "./pages/experience";
-import HomePage from "./pages/home";
-import NotFoundPage from "./pages/notfound";
-import ProjectsPage from "./pages/projects";
-import PublicationsPage from "./pages/publication";
-import SkillsPage from "./pages/skills";
-import SocialsPage from "./pages/social";
+import {
+  BoardPage,
+  EducationsPage,
+  ExperiencesPage,
+  HomePage,
+  LoginPage,
+  NotFoundPage,
+  ProjectsPage,
+  PublicationsPage,
+  RegisterPage,
+  SkillsPage,
+  SocialsPage,
+} from "./pages";
 
 declare module "@tanstack/react-router" {
   interface StaticDataRouteOption {

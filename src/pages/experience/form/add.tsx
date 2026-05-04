@@ -1,11 +1,10 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useExperiencesQuery } from "@/store/query/experience";
-import { type ExperienceDTO } from "@/types/dto";
+import { type ExperienceDTO } from "@/types";
 
 import { ExperienceFormGeneric } from "./form";
 
@@ -15,10 +14,7 @@ export const CreateExperience = () => {
 
   const handleCreate = async (data: ExperienceDTO) => {
     createExperienceMutation.mutate(data, {
-      onSuccess: () => {
-        toast.success("Created experience");
-        setOpen(false);
-      },
+      onSuccess: () => setOpen(false),
     });
   };
 

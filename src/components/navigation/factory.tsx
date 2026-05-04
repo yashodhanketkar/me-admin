@@ -41,11 +41,15 @@ export const NavContent = ({
       </NavigationMenuTrigger>
       <NavigationMenuContent>
         <ul className={`grid gap-1 p-1 md:grid-cols-${numcols}`}>
-          {pages.map((page) => (
+          {pages.sort(sorter).map((page) => (
             <LinkFactory page={page} />
           ))}
         </ul>
       </NavigationMenuContent>
     </NavigationMenuItem>
   );
+};
+
+const sorter = (a: NavPage, b: NavPage) => {
+  return a.serial - b.serial;
 };

@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { ButtonGroup } from "@/components/ui/button-group";
 import * as c from "@/components/ui/card";
 import { useExperiencesQuery } from "@/store/query/experience";
-import type { Experience } from "@/types/types";
+import type { Experience } from "@/types";
 
 import { UpdateExperience } from "../form/update";
 import { DeleteButton } from "./delete";

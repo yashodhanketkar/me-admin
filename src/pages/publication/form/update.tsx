@@ -1,6 +1,5 @@
 import { Pencil } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -20,15 +19,7 @@ export const UpdatePublication = ({
 
   const handleUpdate = async (data: PublicationDTO) => {
     const payload = { ...data, authors: data.authors.map((a) => a.value) };
-    updatePublicationMutation.mutate(
-      { id: publication.id, payload },
-      {
-        onSuccess: () => {
-          toast.success("Updated publication");
-          setOpen(false);
-        },
-      },
-    );
+    updatePublicationMutation.mutate({ id: publication.id, payload });
   };
 
   return (

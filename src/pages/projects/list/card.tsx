@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import * as c from "@/components/ui/card";
 import { useProjectsQuery } from "@/store/query/project";
-import type { Project } from "@/types/types";
+import type { Project } from "@/types";
 
 import { UpdateProject } from "../form/update";
 import { DeleteButton } from "./delete";

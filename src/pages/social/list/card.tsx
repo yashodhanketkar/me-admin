@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { ButtonGroup } from "@/components/ui/button-group";
 import * as c from "@/components/ui/card";
 import { useSocialsQuery } from "@/store/query/social";
-import type { Social } from "@/types/types";
+import type { Social } from "@/types";
 
 import { UpdateSocial } from "../form/update";
 import { DeleteButton } from "./delete";

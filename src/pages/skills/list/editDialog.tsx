@@ -12,7 +12,7 @@ import {
 import { FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useSkillsQuery } from "@/store/query/skill";
-import type { Skill } from "@/types/types";
+import type { Skill } from "@/types";
 
 type SkillUdpate = {
   name: string;

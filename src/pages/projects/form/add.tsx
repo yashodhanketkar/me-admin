@@ -1,6 +1,5 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -16,10 +15,7 @@ export const CreateProject = () => {
   const handleCreate = async (data: ProjectDTO) => {
     const payload = { ...data, links: data.links.map((l) => l.value) };
     createProjectMutation.mutate(payload, {
-      onSuccess: () => {
-        toast.success("Created project");
-        setOpen(false);
-      },
+      onSuccess: () => setOpen(false),
     });
   };
 

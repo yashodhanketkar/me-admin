@@ -3,6 +3,7 @@ export type User = {
   password: string;
 };
 
+// Experience
 export type Experience = {
   id: string;
   name: string;
@@ -11,7 +12,9 @@ export type Experience = {
   end: string;
   description: string;
 };
+export type ExperienceDTO = Omit<Experience, "id">;
 
+// Education
 export type Education = {
   id: string;
   degree: string;
@@ -20,7 +23,9 @@ export type Education = {
   grades: string;
   heading: string;
 };
+export type EducationDTO = Omit<Education, "id">;
 
+// Project
 export type Project = {
   id: string;
   name: string;
@@ -29,9 +34,11 @@ export type Project = {
   end: string;
   source: string;
   links: string[];
-  featured: boolean;
+  featured?: boolean;
 };
+export type ProjectDTO = Omit<Project, "id">;
 
+// Publication
 export type Publication = {
   id: string;
   name: string;
@@ -41,10 +48,18 @@ export type Publication = {
   date: string;
   doi: string;
   journal: string;
-  featured: boolean;
+  featured?: boolean;
 };
+export type PublicationDTO = Omit<Publication, "id">;
 
-export type SocialType = "linkedin" | "home" | "github" | "web" | "orcid";
+// Social
+export type SocialType =
+  | "linkedin"
+  | "home"
+  | "github"
+  | "web"
+  | "orcid"
+  | "youtube";
 
 export type Social = {
   id: string;
@@ -52,9 +67,12 @@ export type Social = {
   url: string;
   type: SocialType;
 };
+export type SocialDTO = Omit<Social, "id">;
 
+// Skill
 export type Skill = {
   id: string;
   category: string;
   name: string;
 };
+export type SkillDTO = Omit<Skill, "id">;

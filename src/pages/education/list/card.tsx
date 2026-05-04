@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { ButtonGroup } from "@/components/ui/button-group";
 import * as c from "@/components/ui/card";
 import { useEducationsQuery } from "@/store/query/education";
-import type { Education } from "@/types/types";
+import type { Education } from "@/types";
 
 import { UpdateEducation } from "../form/update";
 import { DeleteButton } from "./delete";

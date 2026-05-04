@@ -1,12 +1,10 @@
 import { Pencil } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useExperiencesQuery } from "@/store/query/experience";
-import type { ExperienceDTO } from "@/types/dto";
-import type { Experience } from "@/types/types";
+import type { Experience, ExperienceDTO } from "@/types";
 
 import { ExperienceFormGeneric } from "./form";
 
@@ -19,15 +17,7 @@ export const UpdateExperience = ({
   const { updateExperienceMutation } = useExperiencesQuery();
 
   const handleUpdate = async (data: ExperienceDTO) => {
-    updateExperienceMutation.mutate(
-      { id: experience.id, payload: data },
-      {
-        onSuccess: () => {
-          toast.success("Updated experience");
-          setOpen(false);
-        },
-      },
-    );
+    updateExperienceMutation.mutate({ id: experience.id, payload: data });
   };
 
   return (

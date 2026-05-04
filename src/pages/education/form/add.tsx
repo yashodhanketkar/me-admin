@@ -1,11 +1,10 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useEducationsQuery } from "@/store/query/education";
-import type { EducationDTO } from "@/types/dto";
+import type { EducationDTO } from "@/types";
 
 import { EducationFormGeneric } from "./form";
 
@@ -15,10 +14,7 @@ export const CreateEducation = () => {
 
   const handleCreate = async (data: EducationDTO) => {
     createEducationMutation.mutate(data, {
-      onSuccess: () => {
-        toast.success("Created education");
-        setOpen(false);
-      },
+      onSuccess: () => setOpen(false),
     });
   };
 

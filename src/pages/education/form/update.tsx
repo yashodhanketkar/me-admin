@@ -1,12 +1,10 @@
 import { Pencil } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useEducationsQuery } from "@/store/query/education";
-import { type EducationDTO } from "@/types/dto";
-import type { Education } from "@/types/types";
+import type { Education, EducationDTO } from "@/types";
 
 import { EducationFormGeneric } from "./form";
 
@@ -15,15 +13,7 @@ export const UpdateEducation = ({ education }: { education: Education }) => {
   const { updateEducationMutation } = useEducationsQuery();
 
   const handleUpdate = async (data: EducationDTO) => {
-    updateEducationMutation.mutate(
-      { id: education.id, payload: data },
-      {
-        onSuccess: () => {
-          toast.success("Updated education");
-          setOpen(false);
-        },
-      },
-    );
+    updateEducationMutation.mutate({ id: education.id, payload: data });
   };
 
   return (

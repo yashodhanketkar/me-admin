@@ -5,7 +5,7 @@ import type {
   UseFormRegister,
 } from "react-hook-form";
 
-import type { EducationDTO } from "@/types/dto";
+import type { EducationDTO } from "@/types";
 
 export interface EducationFormProps {
   initialData?: Partial<EducationDTO>;

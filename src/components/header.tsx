@@ -1,5 +1,4 @@
-import { MainNavigation } from "./navigation";
-import { AuthLinks } from "./navigation/authbutton";
+import { AuthLinks, MainNavigation } from "./navigation";
 
 export const Header = () => {
   return (

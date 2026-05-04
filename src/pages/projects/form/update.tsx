@@ -1,6 +1,5 @@
 import { Pencil } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -16,15 +15,7 @@ export const UpdateProject = ({ project }: { project: Project }) => {
 
   const handleUpdate = async (data: ProjectDTO) => {
     const payload = { ...data, links: data.links.map((l) => l.value) };
-    updateProjectMutation.mutate(
-      { id: project.id, payload },
-      {
-        onSuccess: () => {
-          toast.success("Updated project");
-          setOpen(false);
-        },
-      },
-    );
+    updateProjectMutation.mutate({ id: project.id, payload });
   };
 
   return (

@@ -1,6 +1,5 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -14,12 +13,12 @@ export const CreatePublication = () => {
   const { createPublicationMutation } = usePublicationsQuery();
 
   const handleCreate = async (data: PublicationDTO) => {
-    const payload = { ...data, authors: data.authors.map((a) => a.value) };
+    const payload = {
+      ...data,
+      authors: data.authors.map((a) => a.value),
+    };
     createPublicationMutation.mutate(payload, {
-      onSuccess: () => {
-        toast.success("Created publication");
-        setOpen(false);
-      },
+      onSuccess: () => setOpen(false),
     });
   };
 

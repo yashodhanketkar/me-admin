@@ -4,8 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useSocialsQuery } from "@/store/query/social";
-import { type SocialDTO } from "@/types/dto";
-import type { Social } from "@/types/types";
+import type { Social, SocialDTO } from "@/types";
 
 import { SocialFormGeneric } from "./form";
 

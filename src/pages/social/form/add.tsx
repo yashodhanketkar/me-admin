@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { NewButton } from "@/components/addbutton";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useSocialsQuery } from "@/store/query/social";
-import type { SocialDTO } from "@/types/dto";
+import type { SocialDTO } from "@/types";
 
 import { SocialFormGeneric } from "./form";
 
@@ -14,10 +13,7 @@ export const CreateSocial = () => {
 
   const handleCreate = async (data: SocialDTO) => {
     createSocialMutation.mutate(data, {
-      onSuccess: () => {
-        toast.success("Created social");
-        setOpen(false);
-      },
+      onSuccess: () => setOpen(false),
     });
   };
 

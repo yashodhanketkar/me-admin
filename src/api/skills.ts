@@ -1,4 +1,4 @@
-import type { Skill } from "@/types/types";
+import type { Skill } from "@/types";
 
 import { api } from "./client";
 

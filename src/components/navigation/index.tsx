@@ -8,17 +8,17 @@ import { NavContent } from "./factory";
 import type { NavPage } from "./types";
 
 const HomePages: NavPage[] = [
-  { path: "/home", name: "Home" },
-  { path: "/board", name: "Dashboard" },
+  { serial: 1, path: "/home", name: "Home" },
+  { serial: 2, path: "/board", name: "Dashboard" },
 ];
 
 const ManagePages: NavPage[] = [
-  { path: "/skills", name: "Skills" },
-  { path: "/projects", name: "Projects" },
-  { path: "/experiences", name: "Experiences" },
-  { path: "/publications", name: "Publications" },
-  { path: "/educations", name: "Education" },
-  { path: "/socials", name: "Social" },
+  { serial: 1, path: "/projects", name: "Projects" },
+  { serial: 2, path: "/skills", name: "Skills" },
+  { serial: 3, path: "/publications", name: "Publications" },
+  { serial: 4, path: "/educations", name: "Education" },
+  { serial: 5, path: "/experiences", name: "Experiences" },
+  { serial: 6, path: "/socials", name: "Social" },
 ];
 
 export const MainNavigation = () => {
@@ -30,8 +30,10 @@ export const MainNavigation = () => {
     <NavigationMenu>
       <NavigationMenuList>
         <NavContent title="Home" pages={HomePages} />
-        <NavContent title="Mange" pages={ManagePages} numcols={2} />
+        <NavContent title="Mange" pages={ManagePages} />
       </NavigationMenuList>
     </NavigationMenu>
   );
 };
+
+export { AuthLinks } from "./authbutton";
