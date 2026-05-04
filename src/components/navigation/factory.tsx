@@ -42,7 +42,7 @@ export const NavContent = ({
       <NavigationMenuContent>
         <ul className={`grid gap-1 p-1 md:grid-cols-${numcols}`}>
           {pages.sort(sorter).map((page) => (
-            <LinkFactory page={page} />
+            <LinkFactory key={page.serial} page={page} />
           ))}
         </ul>
       </NavigationMenuContent>

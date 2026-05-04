@@ -1,4 +1,9 @@
+import { Moon, Sun } from "lucide-react";
+
+import { useThemeStore } from "@/store/theme";
+
 import { AuthLinks, MainNavigation } from "./navigation";
+import { Button } from "./ui/button";
 
 export const Header = () => {
   return (
@@ -11,8 +16,24 @@ export const Header = () => {
         <div className="flex flex-row">
           <MainNavigation />
           <AuthLinks />
+          <ThemeButton />
         </div>
       </div>
     </header>
+  );
+};
+
+const ThemeButton = () => {
+  const { theme, setTheme } = useThemeStore();
+
+  return (
+    <Button
+      size="icon-lg"
+      variant="ghost"
+      className="my-auto"
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+    >
+      {theme === "dark" ? <Moon fill="yellow" /> : <Sun fill="orange" />}
+    </Button>
   );
 };
