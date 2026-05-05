@@ -1,3 +1,4 @@
+import { formatHotkeySequence } from "@tanstack/react-hotkeys";
 import { Moon, Sun } from "lucide-react";
 
 import { useThemeStore } from "@/store/theme";
@@ -5,6 +6,8 @@ import { useThemeStore } from "@/store/theme";
 import { AuthLinks, MainNavigation } from "./navigation";
 import { SearchBox } from "./navigation/searchbox";
 import { Button } from "./ui/button";
+import * as k from "./ui/kbd";
+import * as t from "./ui/tooltip";
 
 export const Header = () => {
   return (
@@ -29,14 +32,29 @@ const ThemeButton = () => {
   const { theme, setTheme } = useThemeStore();
 
   return (
-    <Button
-      id="theme-button"
-      size="icon-lg"
-      variant="ghost"
-      className="my-auto"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-    >
-      {theme === "dark" ? <Moon fill="yellow" /> : <Sun fill="orange" />}
-    </Button>
+    <t.Tooltip>
+      <t.TooltipTrigger
+        render={
+          <Button
+            id="theme-button"
+            size="icon-lg"
+            variant="ghost"
+            className="my-auto"
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          >
+            {theme === "dark" ? <Moon fill="yellow" /> : <Sun fill="orange" />}
+          </Button>
+        }
+      />
+      <t.TooltipContent className="px-2">
+        <p>
+          Switch to
+          {theme === "dark" ? " Light Mode" : " Dark Mode"}
+        </p>
+        <k.KbdGroup>
+          <k.Kbd>{formatHotkeySequence(["B", "G"])}</k.Kbd>
+        </k.KbdGroup>
+      </t.TooltipContent>
+    </t.Tooltip>
   );
 };

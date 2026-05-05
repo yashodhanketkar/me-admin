@@ -43,6 +43,7 @@ export const PublicationFormGeneric = ({
       await onSubmit(data);
       if (!initialData) reset();
     } catch (e) {
+      console.error(e);
       setError("Something went wrong");
     }
   };

@@ -1,11 +1,8 @@
 import { formatForDisplay } from "@tanstack/react-hotkeys";
 import { Link } from "@tanstack/react-router";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Kbd } from "@/components/ui/kbd";
+import * as t from "@/components/ui/tooltip";
 import { useAuthStore } from "@/store/auth";
 
 const HomePage = () => {
@@ -34,22 +31,22 @@ const HomePage = () => {
           {" to access."}
         </div>
       ) : (
-        <Tooltip>
-          <TooltipTrigger
-            render={
-              <div className="text-center text-muted-foreground mt-4 italic">
-                {"Please visit "}
+        <div className="text-center text-muted-foreground mt-4 italic">
+          {"Please visit "}
+          <t.Tooltip>
+            <t.TooltipTrigger
+              render={
                 <Link className="font-bold" to="/board">
                   dashboard
                 </Link>
-                {" for more info."}
-              </div>
-            }
-          />
-          <TooltipContent side="bottom">
-            {formatForDisplay("Shift+D")}
-          </TooltipContent>
-        </Tooltip>
+              }
+            />
+            <t.TooltipContent side="bottom" className="px-2">
+              <Kbd>{formatForDisplay("Shift+D")}</Kbd>
+            </t.TooltipContent>
+          </t.Tooltip>
+          {" for more info."}
+        </div>
       )}
     </div>
   );
