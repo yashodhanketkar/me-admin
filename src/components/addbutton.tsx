@@ -2,7 +2,7 @@ import { Plus } from "lucide-react";
 
 import { Button } from "./ui/button";
 import { Kbd } from "./ui/kbd";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import * as t from "./ui/tooltip";
 
 export interface NewButtonProps {
   title?: string;
@@ -11,8 +11,8 @@ export interface NewButtonProps {
 
 export const NewButton = ({ title, setOpen }: NewButtonProps) => {
   return (
-    <Tooltip>
-      <TooltipTrigger
+    <t.Tooltip>
+      <t.TooltipTrigger
         render={
           <Button
             id="new-button"
@@ -25,12 +25,12 @@ export const NewButton = ({ title, setOpen }: NewButtonProps) => {
           </Button>
         }
       />
-      <TooltipContent>
+      <t.TooltipContent className="px-2">
         {title}
         <Kbd data-icon="inline-end" className="translate-x-0.5">
           Ctrl + N
         </Kbd>
-      </TooltipContent>
-    </Tooltip>
+      </t.TooltipContent>
+    </t.Tooltip>
   );
 };

@@ -76,3 +76,11 @@ export type Skill = {
   name: string;
 };
 export type SkillDTO = Omit<Skill, "id">;
+
+// Dashboard
+export type DashData = {
+  projects: Project[];
+  skills: Skill[];
+  publication: Publication[];
+  educations: Education[];
+};

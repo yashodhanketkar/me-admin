@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useProjectsQuery } from "@/store/query/project";
-import type { Project } from "@/types/types";
+import type { Project } from "@/types";
 
 import { ProjectFormGeneric } from "./form";
 import { type ProjectDTO } from "./types";
@@ -14,7 +14,10 @@ export const UpdateProject = ({ project }: { project: Project }) => {
   const { updateProjectMutation } = useProjectsQuery();
 
   const handleUpdate = async (data: ProjectDTO) => {
-    const payload = { ...data, links: data.links.map((l) => l.value) };
+    const payload = {
+      ...data,
+      links: (data.links as { value: string }[]).map((l) => l.value),
+    };
     updateProjectMutation.mutate({ id: project.id, payload });
   };
 
@@ -36,7 +39,7 @@ export const UpdateProject = ({ project }: { project: Project }) => {
           submitLabel="Update"
           initialData={{
             ...project,
-            links: project.links?.map((l) => ({ value: l })),
+            links: project.links?.map((l: string) => ({ value: l })),
           }}
           onSubmit={handleUpdate}
         />

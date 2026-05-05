@@ -38,6 +38,7 @@ export const SocialFormGeneric = ({
       await onSubmit(data);
       if (!initialData) reset();
     } catch (e) {
+      console.error(e);
       setError("Something went wrong");
     }
   };
