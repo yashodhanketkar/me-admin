@@ -8,7 +8,7 @@ const dateValidator = z.string().superRefine((val, ctx) => {
       .safeParse(val);
 
     if (!result.success) {
-      result.error.issues.forEach((issue: any) => ctx.addIssue(issue));
+      result.error.issues.forEach((issue) => ctx.addIssue(issue.message));
     }
   }
 });

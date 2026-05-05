@@ -5,7 +5,9 @@ import {
   type FieldError,
   type FieldErrors,
   type FieldPath,
+  type FieldValue,
   type FieldValues,
+  get,
   type Path,
   useFieldArray,
   type UseFormRegister,
@@ -84,8 +86,7 @@ export const LinksField = <T extends FieldValues>({
       </f.FieldLabel>
       <div className="space-y-4">
         {fields.map((field, index) => {
-          const fieldError = (errors[name] as any)?.[index]?.value;
-
+          const fieldError = get(errors, `${name}.${index}.value`);
           return (
             <div key={field.id}>
               <div className="flex gap-2">
@@ -101,7 +102,7 @@ export const LinksField = <T extends FieldValues>({
         <Button
           size="icon"
           type="button"
-          onClick={() => append({ value: "" } as any)}
+          onClick={() => append({ value: "" } as FieldValue<T>)}
         >
           <Plus />
         </Button>

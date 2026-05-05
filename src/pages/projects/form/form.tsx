@@ -43,6 +43,7 @@ export const ProjectFormGeneric = ({
       if (!initialData) reset();
       reset();
     } catch (e) {
+      console.error(e);
       setError("Something went wrong");
     }
   };

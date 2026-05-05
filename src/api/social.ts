@@ -1,4 +1,4 @@
-import type { Social } from "@/types/types";
+import type { Social } from "@/types";
 
 import { api } from "./client";
 

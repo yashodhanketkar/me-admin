@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { usePublicationsQuery } from "@/store/query/publication";
-import type { Publication } from "@/types/types";
+import type { Publication } from "@/types";
 
 import { PublicationFormGeneric } from "./form";
 import type { PublicationDTO } from "./types";
@@ -40,7 +40,7 @@ export const UpdatePublication = ({
           submitLabel="Update"
           initialData={{
             ...publication,
-            authors: publication.authors?.map((l) => ({ value: l })),
+            authors: publication.authors?.map((l: string) => ({ value: l })),
           }}
           onSubmit={handleUpdate}
         />

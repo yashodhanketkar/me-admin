@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { type SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm, useWatch } from "react-hook-form";
 
 import { NewButton } from "@/components/addbutton";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ import { skillSchema } from "./schema";
 export const SkillsForm = () => {
   const {
     register,
-    watch,
+    control,
     handleSubmit,
     setValue,
     reset,
@@ -35,7 +35,7 @@ export const SkillsForm = () => {
 
   let dict: SkillDict = [];
 
-  const selectedCategory = watch("category");
+  const selectedCategory = useWatch({ control, name: "category" });
   const isCustom = selectedCategory === "Custom";
 
   if (!isLoading && !isError && data) {

@@ -15,7 +15,7 @@ const LoginPage = () => {
     useLoginMutation.mutate(data);
     if (useLoginMutation.isError) {
       const err = (useLoginMutation.error as AxiosError)?.response?.data;
-      setError((err as any)?.message || "Failed to login");
+      setError((err as Error)?.message || "Failed to login");
     }
   };
 
