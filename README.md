@@ -1,47 +1,18 @@
-Job Tracker - Client
-====================
+Yashodhan Ketkar | Admin Panel
+==============================
 
-Frontend part of the Job Tracker application.
+This is a source code for administrative panel for my personal website.
 
-Few decision
+This project is build using React, TailwindCSS, Shadcn, Tanstack Query and router
+
+Key Features
 ------------
 
--	Used tanstack Libraries for better routing and state management
--	Used DnD Kit for drag and drop due to its simplicity and performance
--	Some of code is not converted to reusable component to keep integrity and to avoid use of `any`
+-	Robust design: Optimized components for a seamless user experience.
+-	State Management: Efficient data and route handling with Tanstack Query.
+-	Admin Tools: Customized dashboard and forms with help of Shadcn components and react-hook-forms.
 
-Usage
------
+Licence
+-------
 
-1.	Run `npm install` to install dependencies
-
-2.	Create a `.env` file in the root directory with the following content:
-
-	```
-	VITE_API_URL="http://localhost:5000/api"
-	or
-	VITE_API_URL=${modified server url if required}
-	```
-
-3.	Make sure server is running
-
-4.	To start the development mode
-
-	```sh
-	# if make is installed
-	make
-
-	# if not
-	npm run dev
-	```
-
-5.	To start production build
-
-	```sh
-	# if make is installed
-	make prod
-
-	# if not
-	npm run build
-	npm run preview
-	```
+This project is licensed under the [GNU GPLv3.0 License](./LICENSE) - see the [license](./LICENSE) file for details.
